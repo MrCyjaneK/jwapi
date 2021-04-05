@@ -72,12 +72,17 @@ do
     cd $build/
     cp ../ubtouch ubtouch-$arch -r
     cd $build/ubtouch-$arch/
-    clickable clean &> /dev/null
+    clickable clean
     cp "$build/bin/jwstudy_ubtouch_$arch" $(find . -name jwlib.bin)
     chmod +x $(find . -name jwlib.bin)
     sed -i 's/BUILD_VERSION_CODE/'$vcode'/g' manifest.json.in
-    clickable build --arch=$arch
-    cp build/all/app/*.click $build/bin/jwstudy_$arch.click
+    archC=$arch
+    if [[ "$arch" == "arm" ]];
+    then
+        archC="armhf"
+    fi
+    clickable build --arch=$archC
+    cp build/*/app/*.click $build/bin/jwstudy_$arch.click
     ok
 done
 echo "\_ DONE"
@@ -114,7 +119,7 @@ do
     esac
     chmod +x $(find . -name jwlib.bin)
     sed -i 's/BUILD_VERSION_CODE/'$vcode'/g' app/build.gradle
-    ./gradlew build > /dev/null
+    ./gradlew build
     cp ./app/build/outputs/apk/debug/app-debug.apk "$build/bin/jwstudy.android.$arch.apk"
     ok
 done
