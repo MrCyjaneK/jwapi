@@ -39,14 +39,14 @@ echo -n -e "|- bin/jwstudy_windows_amd64.exe.."
 GOOS=windows GOARCH=amd64 go build -o bin/jwstudy_windows_amd64.exe ../../ && ok
 echo -n -e "\_ bin/jwstudy_windows_arm.exe...."
 GOOS=windows GOARCH=arm go build -o bin/jwstudy_windows_arm.exe ../../ && ok
-echo "/ ubtouch builds - dameon (custom location)"
+echo "/ ubtouch builds - daemon (custom location)"
 echo -n -e "|- bin/jwstudy_ubtouch_arm64......"
 GOOS=linux GOARCH=arm64   go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon" -o bin/jwstudy_ubtouch_arm64 ../../ && ok
 echo -n -e "|- bin/jwstudy_ubtouch_arm........"
 GOOS=linux GOARCH=arm     go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon" -o bin/jwstudy_ubtouch_arm ../../ && ok
 echo -n -e "\_ bin/jwstudy_ubtouch_amd64......"
 GOOS=linux GOARCH=amd64   go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon" -o bin/jwstudy_ubtouch_amd64 ../../ && ok
-echo "/ android builds - dameon (custom location) + NDK"
+echo "/ android builds - daemon (custom location) + NDK"
 # Android Version
 AV=21
 # NDK downloaded in android studio -> tools? -> sdk manager
