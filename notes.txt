@@ -1,0 +1,55 @@
+// watchtower: https://download-a.akamaihd.net/files/media_periodical/ff/w_E_202011.epub
+// lifestyle: https://download-a.akamaihd.net/files/media_periodical/7b/mwb_P_202101.epub
+// awake: https://download-a.akamaihd.net/files/media_periodical/97/g_P_202003.epub
+//        https://download-a.akamaihd.net/files/media_periodical/d3/g_P_202007.epub
+
+
+
+
+curl https://app.jw-cdn.org/catalogs/publications/v4/815ecc5a-e72b-48ac-aa9f-e1e7d256e43b/catalog.db.gz | zcat > catalog.db
+
+curl -i -s -k -X $'GET' \
+    -H $'User-Agent: jwlibrary-android' -H $'Host: app.jw-cdn.org' -H $'Connection: close' -H $'Accept-Encoding: gzip, deflate' \
+    $'https://app.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS?langwritten=E&pub=S-38&fileformat=jwpub'
+
+curl -i -s -k -X $'GET' \
+    -H $'User-Agent: jwlibrary-android' -H $'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiIyNzI3ZWFhMi1hMTU4LTRkZmMtYjBhNC00ZmExNmUyN2M0YWMiLCJzdWIiOiJqdy1saWJyYXJ5LXB1YmxpYyIsImlzcyI6IldlYlB1Ymxpc2hpbmc6cHJkIiwiaWF0IjoxNjA5NzY4ODI4LCJuYmYiOjE2MDk3Njg4MjgsImV4cCI6MTYxMDM3MzYyOCwiYXVkIjpbIkFsZXJ0czpwcmQiXX0.fbyL6IxOa4LFYT1IbhD9Z7Rp1KdvEuPTOQtZ645dAW6x4DWSTfv5j_ufUe8pP_Bff7eLJ9DqvgsBru-hu1W6Tdec5IiS1UQULnV9dqgkDHlqprO1XuOUQyw69Itv5XyNwjExC9V14fQh-mcj-ylYeYSTkDL8e6LUNrn1qbRDcW7sszggUq028TI0uOeNuTQ10t8BlibIyu7cunEeJ4B_NLjOR4erMvbq2zUub2y98Nyf5uorF8gJHZzDmfCouPmTXbRaalQqL_PGzkfa8IRe3Gr5bcOkO4tm2Uu4HdczKe0AfCRzeaEdWir-R-_X-NQJNJQSeS8oyHM0W5ooCxLxcg' -H $'Host: app.jw-cdn.org' -H $'Connection: close' -H $'Accept-Encoding: gzip, deflate' -H $'If-Modified-Since: Mon, 04 Jan 2021 21:34:08 GMT' \
+    $'https://app.jw-cdn.org/apis/alerts/list?type=news&lang=E'
+
+curl -i -s -k -X $'GET' \
+    -H $'User-Agent: jwlibrary-android' -H $'Host: app.jw-cdn.org' -H $'Connection: close' -H $'Accept-Encoding: gzip, deflate' \
+    $'https://app.jw-cdn.org/catalogs/publications/v4/815ecc5a-e72b-48ac-aa9f-e1e7d256e43b/catalog.info.json.gz'
+
+curl -i -s -k -X $'GET' \
+    -H $'User-Agent: jwlibrary-android' -H $'Range: bytes=0-' -H $'Host: app.jw-cdn.org' -H $'Connection: close' -H $'Accept-Encoding: gzip, deflate' \
+    $'https://app.jw-cdn.org/catalogs/publications/v4/815ecc5a-e72b-48ac-aa9f-e1e7d256e43b/catalog.db.gz'
+
+curl -i -s -k -X $'GET' \
+    -H $'User-Agent: jwlibrary-android' -H $'Host: app.jw-cdn.org' -H $'Connection: close' -H $'Accept-Encoding: gzip, deflate' \
+    $'https://app.jw-cdn.org/catalogs/publications/v4/manifest.json'
+
+curl -i -s -k -X $'GET' \
+    -H $'User-Agent: Dalvik/2.1.0 (Linux; U; Android 6.0; Android SDK built for x86_64 Build/MASTER)' -H $'Host: app.jw-cdn.org' -H $'Connection: close' -H $'Accept-Encoding: gzip, deflate' \
+    $'https://app.jw-cdn.org/tokens/jwl-public.jwt'
+
+curl -i -s -k -X $'HEAD' \
+    -H $'User-Agent: jwlibrary-android' -H $'Accept-Encoding: gzip, deflate' -H $'Host: app.jw-cdn.org' -H $'Connection: close' \
+    $'https://app.jw-cdn.org/catalogs/media/languages.json.gz'
+
+curl -i -s -k -X $'GET' \
+    -H $'User-Agent: jwlibrary-android' -H $'Accept-Encoding: gzip, deflate' -H $'Host: app.jw-cdn.org' -H $'Connection: close' \
+    $'https://app.jw-cdn.org/catalogs/media/E.json.gz'
+
+curl -i -s -k -X $'GET' \
+    -H $'User-Agent: jwlibrary-android' -H $'Host: app.jw-cdn.org' -H $'Connection: close' -H $'Accept-Encoding: gzip, deflate' \
+    $'https://app.jw-cdn.org/catalogs/catalog.53278119'
+
+curl -i -s -k -X $'GET' \
+    -H $'User-Agent: jwlibrary-android' -H $'Host: app.jw-cdn.org' -H $'Connection: close' -H $'Accept-Encoding: gzip, deflate' \
+    $'https://app.jw-cdn.org/catalogs/publications/images/79/1102016770_univ_sqr-600x600.jpg'
+
+curl -i -s -k -X $'GET' \
+    -H $'User-Agent: jwlibrary-android' -H $'Host: app.jw-cdn.org' -H $'Connection: close' -H $'Accept-Encoding: gzip, deflate' \
+    $'https://app.jw-cdn.org/catalogs/publications/images/fd/1102018437_univ_sqr-600x600.jpg'
+
+

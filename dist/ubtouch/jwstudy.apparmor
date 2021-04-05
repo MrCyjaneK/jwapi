@@ -1,0 +1,7 @@
+{
+    "policy_groups": [
+        "networking",
+        "webview"
+    ],
+    "policy_version": 16.04
+}

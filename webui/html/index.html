@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>JW Study - Home</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/css/simple-sidebar.css" rel="stylesheet">
+  <link href="/css/custom.css" rel="stylesheet">
+
+  <!-- Common js functions -->
+  <script src="/static/common.js"></script>
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">JW Study</div>
+      <div class="list-group list-group-flush">
+        <a href="/index.html" class="list-group-item list-group-item-action bg-light">Home Page</a>
+        <a href="reader.html#/api/publications/nwt/biblebooknav.xhtml" class="list-group-item list-group-item-action bg-light">Bible</a>
+        <a href="/publications.html" class="list-group-item list-group-item-action bg-light">Publications</a>
+        <a href="/meetings.html" class="list-group-item list-group-item-action bg-light">Meetings</a>
+        <a href="/settings.html" class="list-group-item list-group-item-action bg-light">Settings</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Help</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Menu</button>
+      </nav>
+
+      <div class="container-fluid">
+        <!--
+          <h1 class="mt-4">Welcome to JW Study</h1>
+          <p>It is simple JW Library alternative app, that use official JW api (no content manipulation is made, except for cosmetic changes that make the extracted publications look nice such as fonts, and colors).</p>
+          <p>What other benefits come with JW Study app?</p>
+          <ul>
+            <li>It's fully open source, we can't put any malware/spyware inside. <a href="https://opensource.com/life/14/12/the-meaning-of-open-source" target="_blank">Why does it matter?</a></li>
+            <li>You can use your current session, with highlights and notes, on all your devices.</li>
+            <li>Works fully offline, and have ability to use alternative download options (signed torrents) in case when JW.org website goes offline.</li>
+            <li>Is lightweight, except for long boot time, once a day, this app is quite fast.</li>
+          </ul>
+        -->
+        <div id="es" class="daily">
+          <h3 id="es_date" class="center"></h3>
+          <p id="es_text" class="center"></p>
+        </div>
+        <h3>Last used</h3>
+        <div class="scrollmenu">
+          <a class="libelem" href="/reader.html#/api/publications/nwt/biblebooknav.xhtml">Bible</a>
+        </div>
+        </div>
+      </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+  
+  <!-- es script, get date etc. -->
+  <script src="/static/eshelper.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>JW Study - Home</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">JW Study</div>
+      <div class="list-group list-group-flush">
+        <a href="/index.html" class="list-group-item list-group-item-action bg-light">Home Page</a>
+        <a href="/api/publications/nwt/biblebooknav.xhtml" class="list-group-item list-group-item-action bg-light">Bible</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Publications</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Meetings</a>
+        <a href="/settings.html" class="list-group-item list-group-item-action bg-light">Settings</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Help</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="btn btn-primary" id="menu-toggle">Menu</button>
+        </nav>
+        <iframe id="reader" width="100%" height="100%" frameborder="0" src="data:text/plain,Loading"></iframe>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+  <!-- Load page content from the link's hash -->
+  <script>
+    page = location.hash.substr(1)
+    iframe = document.getElementById('reader')
+    iframe.src = page
+    // Update the iframe's link
+    iframe.onload = (() => {
+        //console.log(this)
+        link = this.iframe.contentWindow.location.href
+        hash = '#/api/'+link.split('/api/')[1]
+        history.pushState(null, null, hash);
+    })
+  </script>
+</body>
+
+</html>
