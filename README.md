@@ -1,4 +1,5 @@
 # JWapi
+[![Build Status](https://ci.mrcyjanek.net/badge/build-jwapi.svg)](https://ci.mrcyjanek.net/jobs/build-jwapi)
 
 JW api is a main project for:
 
