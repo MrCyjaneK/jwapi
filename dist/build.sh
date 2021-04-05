@@ -21,7 +21,7 @@ cd ../..
 ~/go/bin/packr2 clean
 ~/go/bin/packr2
 
-cd "$build"
+cd "$builddir"
 mkdir bin
 echo "/ Linux builds - daemon."
 echo -n -e "|- bin/jwstudy_linux_386.........."
@@ -69,11 +69,11 @@ echo "/ Packaging for Ubuntu Touch"
 for arch in arm64 arm amd64
 do
     echo -n -e "|- bin/jwstudy_$arch.click............" | head -c 34
-    cd $build/
+    cd $builddir/
     cp ../ubtouch ubtouch-$arch -r
-    cd $build/ubtouch-$arch/
+    cd $builddir/ubtouch-$arch/
     clickable clean
-    cp "$build/bin/jwstudy_ubtouch_$arch" $(find . -name jwlib.bin)
+    cp "$builddir/bin/jwstudy_ubtouch_$arch" $(find . -name jwlib.bin)
     chmod +x $(find . -name jwlib.bin)
     sed -i 's/BUILD_VERSION_CODE/'$vcode'/g' manifest.json.in
     archC=$arch
@@ -82,7 +82,7 @@ do
         archC="armhf"
     fi
     clickable build --arch=$archC
-    cp build/*/app/*.click $build/bin/jwstudy_$arch.click
+    cp build/*/app/*.click $builddir/bin/jwstudy_$arch.click
     ok
 done
 echo "\_ DONE"
@@ -90,38 +90,38 @@ echo "/ Packaging for android"
 for arch in arm64 arm amd64 386 all
 do
     echo -n -e "|- bin/jwstudy.android.$arch.apk.........." | head -c 34
-    cd "$build"
+    cd "$builddir"
     cp ../android android-target-$arch -r
     cd android-target-$arch
-    touch "$build/android-target-$arch/app/src/main/resources/lib/x86_64/jwlib.bin"
-    touch "$build/android-target-$arch/app/src/main/resources/lib/x86/jwlib.bin"
-    touch "$build/android-target-$arch/app/src/main/resources/lib/armeabi-v7a/jwlib.bin"
-    touch "$build/android-target-$arch/app/src/main/resources/lib/arm64-v8a/jwlib.bin"
+    touch "$builddir/android-target-$arch/app/src/main/resources/lib/x86_64/jwlib.bin"
+    touch "$builddir/android-target-$arch/app/src/main/resources/lib/x86/jwlib.bin"
+    touch "$builddir/android-target-$arch/app/src/main/resources/lib/armeabi-v7a/jwlib.bin"
+    touch "$builddir/android-target-$arch/app/src/main/resources/lib/arm64-v8a/jwlib.bin"
     case $arch in
     "amd64")
-        cp "$build/bin/jwstudy_android_amd64" "$build/android-target-$arch/app/src/main/resources/lib/x86_64/jwlib.bin"
+        cp "$builddir/bin/jwstudy_android_amd64" "$builddir/android-target-$arch/app/src/main/resources/lib/x86_64/jwlib.bin"
         ;;
     "386")
-        cp "$build/bin/jwstudy_android_386"   "$build/android-target-$arch/app/src/main/resources/lib/x86/jwlib.bin"
+        cp "$builddir/bin/jwstudy_android_386"   "$builddir/android-target-$arch/app/src/main/resources/lib/x86/jwlib.bin"
         ;;
     "arm")
-        cp "$build/bin/jwstudy_android_arm"   "$build/android-target-$arch/app/src/main/resources/lib/armeabi-v7a/jwlib.bin"
+        cp "$builddir/bin/jwstudy_android_arm"   "$builddir/android-target-$arch/app/src/main/resources/lib/armeabi-v7a/jwlib.bin"
         ;;
     "arm64")
-        cp "$build/bin/jwstudy_android_arm64" "$build/android-target-$arch/app/src/main/resources/lib/arm64-v8a/jwlib.bin"
+        cp "$builddir/bin/jwstudy_android_arm64" "$builddir/android-target-$arch/app/src/main/resources/lib/arm64-v8a/jwlib.bin"
         ;;
     "all")
-        cp "$build/bin/jwstudy_android_amd64" "$build/android-target-$arch/app/src/main/resources/lib/x86_64/jwlib.bin"
-        cp "$build/bin/jwstudy_android_386"   "$build/android-target-$arch/app/src/main/resources/lib/x86/jwlib.bin"
-        cp "$build/bin/jwstudy_android_arm"   "$build/android-target-$arch/app/src/main/resources/lib/armeabi-v7a/jwlib.bin"
-        cp "$build/bin/jwstudy_android_arm64" "$build/android-target-$arch/app/src/main/resources/lib/arm64-v8a/jwlib.bin"
+        cp "$builddir/bin/jwstudy_android_amd64" "$builddir/android-target-$arch/app/src/main/resources/lib/x86_64/jwlib.bin"
+        cp "$builddir/bin/jwstudy_android_386"   "$builddir/android-target-$arch/app/src/main/resources/lib/x86/jwlib.bin"
+        cp "$builddir/bin/jwstudy_android_arm"   "$builddir/android-target-$arch/app/src/main/resources/lib/armeabi-v7a/jwlib.bin"
+        cp "$builddir/bin/jwstudy_android_arm64" "$builddir/android-target-$arch/app/src/main/resources/lib/arm64-v8a/jwlib.bin"
         ;;
     esac
     chmod +x $(find . -name jwlib.bin)
     sed -i 's/BUILD_VERSION_CODE/'$vcode'/g' app/build.gradle
     ./gradlew build
-    cp ./app/build/outputs/apk/debug/app-debug.apk "$build/bin/jwstudy.android.$arch.apk"
+    cp ./app/build/outputs/apk/debug/app-debug.apk "$builddir/bin/jwstudy.android.$arch.apk"
     ok
 done
 echo "\_ OK"
-echo "DONE! Everything is inside $build/bin"
+echo "DONE! Everything is inside $builddir/bin"
