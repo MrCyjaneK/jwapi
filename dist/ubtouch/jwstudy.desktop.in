@@ -1,7 +1,7 @@
 [Desktop Entry]
 _Name=JW Study
 Exec=qmlscene %U qml/Main.qml
-Icon=assets/logo.svg
+Icon=assets/logo.png
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true

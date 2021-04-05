@@ -76,7 +76,7 @@ do
     cp "$build/bin/jwstudy_ubtouch_$arch" $(find . -name jwlib.bin)
     chmod +x $(find . -name jwlib.bin)
     sed -i 's/BUILD_VERSION_CODE/'$vcode'/g' manifest.json.in
-    clickable build &> /dev/null
+    clickable build --arch=$arch
     cp build/all/app/*.click $build/bin/jwstudy_$arch.click
     ok
 done
