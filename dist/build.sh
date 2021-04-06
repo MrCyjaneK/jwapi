@@ -15,7 +15,7 @@ echo "Building JW Study - version: $vcode";
 rm -rf out || true
 mkdir out
 cd out
-build=$(pwd)
+builddir=$(pwd)
 
 cd ../..
 ~/go/bin/packr2 clean
