@@ -27,18 +27,17 @@ Well. You can make it better, simply submit a PR.
 You can go directly to [my ci](https://ci.mrcyjanek.net/jobs/build-jwapi) do grab a binary for your system, or use platform-specific way of doing so:
 
   - debian
-    plain
-    $ # Install my APT repo to your system
-    $ # Make sure to run this command as root
+    
+    Install my APT repo to your system. Make sure to run this command as root
     ```bash
-    $ wget 'https://static.mrcyjanek.net/laminarci/apt-repository/cyjan_repo/mrcyjanek-repo-latest.deb' && \
+    # wget 'https://static.mrcyjanek.net/laminarci/apt-repository/cyjan_repo/mrcyjanek-repo-latest.deb' && \
       apt install ./mrcyjanek-repo-latest.deb && \
       rm ./mrcyjanek-repo-latest.deb && \
       apt update
     ```
     After that install jwstudy
     ```bash
-    $ apt install jwstudy
+    # apt install jwstudy
     ```
 
 # Building.
