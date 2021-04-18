@@ -1,3 +1,5 @@
+// +build !gui,!nogui
+
 package gui
 
 import "log"
