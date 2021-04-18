@@ -3,7 +3,7 @@ set -e
 
 # This script should not be verbose.
 # Simply telling what it is doing is enough.
-GITVERSION=$(git log -n 1 | tr " " "\n" | head -2 | tail -1 | head -c 7)
+GITVERSION="+git"$(date +%Y%m%d%H%M)"."$(git log -n 1 | tr " " "\n" | head -2 | tail -1 | head -c 7)
 function ok {
     echo "OK"
 }
