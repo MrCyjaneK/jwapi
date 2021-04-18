@@ -3,7 +3,7 @@ set -e
 
 # This script should not be verbose.
 # Simply telling what it is doing is enough.
-GITVERSION=$(git log -n 1 | tr " " "\n" | head -2 | tail -1 | head -c 5)
+GITVERSION=$(git log -n 1 | tr " " "\n" | head -2 | tail -1 | head -c 7)
 function ok {
     echo "OK"
 }
@@ -138,7 +138,7 @@ do
     cd debian-deb-$arch
     ARCH=$arch checkinstall --install=no \
         --pkgname="jwstudy" \
-        --pkgversion=1.0.0_"$GITVERSION"_$(cat "$root"/VERSION_CODE) \
+        --pkgversion=1.0.0-"$GITVERSION"-$(cat "$root"/VERSION_CODE) \
         --pkgarch="$arch" \
         --pkgrelease=1 \
         --pkgsource="git.mrcyjanek.net/mrcyjanek/jwapi" \
