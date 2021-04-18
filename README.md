@@ -22,6 +22,25 @@ So is jwapi better?
 
 Well. You can make it better, simply submit a PR.
 
+# Installation
+
+You can go directly to [my ci](https://ci.mrcyjanek.net/jobs/build-jwapi) do grab a binary for your system, or use platform-specific way of doing so:
+
+  - debian
+    plain
+    $ # Install my APT repo to your system
+    $ # Make sure to run this command as root
+    ```bash
+    $ wget 'https://static.mrcyjanek.net/laminarci/apt-repository/cyjan_repo/mrcyjanek-repo-latest.deb' && \
+      apt install ./mrcyjanek-repo-latest.deb && \
+      rm ./mrcyjanek-repo-latest.deb && \
+      apt update
+    ```
+    After that install jwstudy
+    ```bash
+    $ apt install jwstudy
+    ```
+
 # Building.
 
 I need to make better docs for that, you can read dist/build.sh to learn how things are being compiled.
