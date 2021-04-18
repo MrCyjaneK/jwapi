@@ -3,13 +3,14 @@ set -e
 
 # This script should not be verbose.
 # Simply telling what it is doing is enough.
-
+GITVERSION=$(git log -n 1 | tr " " "\n" | head -2 | tail -1 | head -c 5)
 function ok {
     echo "OK"
 }
 
 root=$(dirname $0)
 cd "$root"
+root=$(pwd)
 vcode=$(cat ../VERSION_CODE | head -1)
 echo "Building JW Study - version: $vcode";
 rm -rf out || true
@@ -25,27 +26,27 @@ cd "$builddir"
 mkdir bin
 echo "/ Linux builds - daemon."
 echo -n -e "|- bin/jwstudy_linux_386.........."
-GOOS=linux GOARCH=386     go build -o bin/jwstudy_linux_386 ../../ && ok
+GOOS=linux GOARCH=386     go build -o bin/jwstudy_linux_386 -tags gui ../../ && ok
 echo -n -e "|- bin/jwstudy_linux_amd64........"
-GOOS=linux GOARCH=amd64   go build -o bin/jwstudy_linux_amd64 ../../ && ok
+GOOS=linux GOARCH=amd64   go build -o bin/jwstudy_linux_amd64 -tags gui ../../ && ok
 echo -n -e "|- bin/jwstudy_linux_arm.........."
-GOOS=linux GOARCH=arm     go build -o bin/jwstudy_linux_arm ../../ && ok
+GOOS=linux GOARCH=arm     go build -o bin/jwstudy_linux_arm -tags gui ../../ && ok
 echo -n -e "\_ bin/jwstudy_linux_arm64........"
-GOOS=linux GOARCH=arm64   go build -o bin/jwstudy_linux_arm64 ../../ && ok
+GOOS=linux GOARCH=arm64   go build -o bin/jwstudy_linux_arm64 -tags gui ../../ && ok
 echo "/ Windows builds - daemon"
 echo -n -e "|- bin/jwstudy_windows_386.exe...."
-GOOS=windows GOARCH=386   go build -o bin/jwstudy_windows_386.exe ../../ && ok
+GOOS=windows GOARCH=386   go build -o bin/jwstudy_windows_386.exe -tags gui ../../ && ok
 echo -n -e "|- bin/jwstudy_windows_amd64.exe.."
-GOOS=windows GOARCH=amd64 go build -o bin/jwstudy_windows_amd64.exe ../../ && ok
+GOOS=windows GOARCH=amd64 go build -o bin/jwstudy_windows_amd64.exe -tags gui ../../ && ok
 echo -n -e "\_ bin/jwstudy_windows_arm.exe...."
-GOOS=windows GOARCH=arm go build -o bin/jwstudy_windows_arm.exe ../../ && ok
+GOOS=windows GOARCH=arm go build -o bin/jwstudy_windows_arm.exe -tags gui ../../ && ok
 echo "/ ubtouch builds - daemon (custom location)"
 echo -n -e "|- bin/jwstudy_ubtouch_arm64......"
-GOOS=linux GOARCH=arm64   go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon" -o bin/jwstudy_ubtouch_arm64 ../../ && ok
+GOOS=linux GOARCH=arm64   go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon -X main.Port=8080" -tags nogui -o bin/jwstudy_ubtouch_arm64 ../../ && ok
 echo -n -e "|- bin/jwstudy_ubtouch_arm........"
-GOOS=linux GOARCH=arm     go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon" -o bin/jwstudy_ubtouch_arm ../../ && ok
+GOOS=linux GOARCH=arm     go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon -X main.Port=8080" -tags nogui -o bin/jwstudy_ubtouch_arm ../../ && ok
 echo -n -e "\_ bin/jwstudy_ubtouch_amd64......"
-GOOS=linux GOARCH=amd64   go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon" -o bin/jwstudy_ubtouch_amd64 ../../ && ok
+GOOS=linux GOARCH=amd64   go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon -X main.Port=8080" -tags nogui -o bin/jwstudy_ubtouch_amd64 ../../ && ok
 if [[ "X$SKIPANDROID" == "X" ]];
 then
     echo "/ android builds - daemon (custom location) + NDK"
@@ -57,13 +58,13 @@ then
     export ANDROID_NDK_ROOT=~/Android/Sdk/ndk/$NDKV
     NDK=~/Android/Sdk/ndk/$NDKV/toolchains/llvm/prebuilt/linux-x86_64/bin
     echo -n -e "|- bin/jwstudy_android_arm64......"
-    CGO_ENABLED=1 CC=$NDK/aarch64-linux-android$AV-clang CXX=$NDK/aarch64-linux-android$AV-clang GOOS=android GOARCH=arm64     go build --ldflags "-X main.dataDir=/data/data/x.x.jwstudy/" -o bin/jwstudy_android_arm64 ../../ && ok
+    CGO_ENABLED=1 CC=$NDK/aarch64-linux-android$AV-clang CXX=$NDK/aarch64-linux-android$AV-clang GOOS=android GOARCH=arm64     go build --ldflags "-X main.dataDir=/data/data/x.x.jwstudy/ -X main.Port=8080" -tags nogui -o bin/jwstudy_android_arm64 ../../ && ok
     echo -n -e "|- bin/jwstudy_android_arm........"
-    CGO_ENABLED=1 CC=$NDK/armv7a-linux-androideabi$AV-clang CXX=$NDK/armv7a-linux-androideabi$AV-clang GOOS=android GOARCH=arm go build --ldflags "-X main.dataDir=/data/data/x.x.jwstudy/" -o bin/jwstudy_android_arm ../../ && ok
+    CGO_ENABLED=1 CC=$NDK/armv7a-linux-androideabi$AV-clang CXX=$NDK/armv7a-linux-androideabi$AV-clang GOOS=android GOARCH=arm go build --ldflags "-X main.dataDir=/data/data/x.x.jwstudy/ -X main.Port=8080" -tags nogui -o bin/jwstudy_android_arm ../../ && ok
     echo -n -e "|- bin/jwstudy_android_amd64......"
-    CGO_ENABLED=1 CC=$NDK/x86_64-linux-android$AV-clang CXX=$NDK/x86_64-linux-android$AV-clang GOOS=android GOARCH=amd64       go build --ldflags "-X main.dataDir=/data/data/x.x.jwstudy/" -o bin/jwstudy_android_amd64 ../../ && ok
+    CGO_ENABLED=1 CC=$NDK/x86_64-linux-android$AV-clang CXX=$NDK/x86_64-linux-android$AV-clang GOOS=android GOARCH=amd64       go build --ldflags "-X main.dataDir=/data/data/x.x.jwstudy/ -X main.Port=8080" -tags nogui -o bin/jwstudy_android_amd64 ../../ && ok
     echo -n -e "\_ bin/jwstudy_android_386........"
-    CGO_ENABLED=1 CC=$NDK/i686-linux-android$AV-clang CXX=$NDK/i686-linux-android$AV-clang GOOS=android GOARCH=386             go build --ldflags "-X main.dataDir=/data/data/x.x.jwstudy/" -o bin/jwstudy_android_386 ../../ && ok
+    CGO_ENABLED=1 CC=$NDK/i686-linux-android$AV-clang CXX=$NDK/i686-linux-android$AV-clang GOOS=android GOARCH=386             go build --ldflags "-X main.dataDir=/data/data/x.x.jwstudy/ -X main.Port=8080" -tags nogui -o bin/jwstudy_android_386 ../../ && ok
 fi
 echo "===== Packaging"
 echo "/ Packaging for Ubuntu Touch"
@@ -129,4 +130,22 @@ then
     done
     echo "\_ OK"
 fi
+echo "/ Packaging for debian"
+for arch in arm64 arm amd64 386
+do
+    cd "$builddir"
+    cp ../debian debian-deb-$arch -r
+    cd debian-deb-$arch
+    ARCH=$arch checkinstall --install=no \
+        --pkgname="jwstudy" \
+        --pkgversion=1.0.0_"$GITVERSION"_$(cat "$root"/VERSION_CODE) \
+        --pkgarch="$arch" \
+        --pkgrelease=1 \
+        --pkgsource="git.mrcyjanek.net/mrcyjanek/jwapi" \
+        --pakdir="../bin" \
+        --maintainer="cyjan@mrcyjanek.net" \
+        --provides="jwstudy" \
+        -D \
+        -y
+done
 echo "DONE! Everything is inside $builddir/bin"

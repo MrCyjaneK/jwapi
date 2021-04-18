@@ -1,0 +1,9 @@
+[Desktop Entry]
+GenericName=JW Study
+Name=JW Study
+Exec=jwstudy %U
+Icon=jwstudy
+Type=Application
+Terminal=false
+Categories=Utility;
+Comment=FOSS replacement for JW Library

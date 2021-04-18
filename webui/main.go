@@ -3,14 +3,21 @@ package webui
 import (
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	"net/http"
+	"strconv"
 
 	"git.mrcyjanek.net/mrcyjanek/jwapi/libjw"
 	"github.com/gobuffalo/packr/v2"
 )
 
+var Port = 0
+
 // Start the webui
 func Start() {
+	if Port == 0 {
+		Port = 2000 + rand.Intn(10000)
+	}
 	html := packr.New("webui", "./html")
 	http.Handle("/", http.FileServer(html))
 	http.HandleFunc("/api/", api)
@@ -23,8 +30,8 @@ func Start() {
 	http.HandleFunc("/api/publications_json/", apiPublicationJson)
 	http.HandleFunc("/api/ping", apiPing)
 	http.HandleFunc("/api/languages", apiLanguages)
-	go http.ListenAndServe(":8080", nil)
-	fmt.Println("[webui][Start] Listening on 127.0.0.1:8080")
+	go http.ListenAndServe(":"+strconv.Itoa(Port), nil)
+	fmt.Println("[webui][Start] Listening on 127.0.0.1:" + strconv.Itoa(Port))
 }
 
 func apiPing(w http.ResponseWriter, req *http.Request) {
