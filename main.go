@@ -1,8 +1,6 @@
 package main
 
 import (
-	"time"
-
 	"git.mrcyjanek.net/mrcyjanek/jwapi/gui"
 	"git.mrcyjanek.net/mrcyjanek/jwapi/helpers"
 	"git.mrcyjanek.net/mrcyjanek/jwapi/libjw"
@@ -30,7 +28,4 @@ func main() {
 	libjw.GetCatalog(dataDir + "/raw/catalog.db")
 	webui.Start()
 	gui.Start()
-	for {
-		time.Sleep(time.Hour)
-	}
 }
