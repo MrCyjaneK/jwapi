@@ -138,7 +138,7 @@ do
     cd debian-deb-$arch
     ARCH=$arch checkinstall --install=no \
         --pkgname="jwstudy" \
-        --pkgversion=1.0.0-"$GITVERSION"-$(cat "$root"/VERSION_CODE) \
+        --pkgversion=1.0.0-"$GITVERSION"-"$vcode" \
         --pkgarch="$arch" \
         --pkgrelease=1 \
         --pkgsource="git.mrcyjanek.net/mrcyjanek/jwapi" \
