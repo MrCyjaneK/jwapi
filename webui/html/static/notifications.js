@@ -2,10 +2,13 @@ function getNotifications() {
     fetch("/api/alerts")
     .then(response => response.json())
     .then((response) => {
+        let notifs = document.getElementById('notification-area')
+        notifs.outerHTML = `<div id="notification-area"></div>`
         for (i in response) {
             r = response[i]
-            let notifs = document.getElementById('notification-area')
-            notifs.innerHTML = ""
+            if (r.Title == "") {
+                return
+            }
             notifs = document.getElementById('notification-area')
             let div = document.createElement('div')
             div.classList = "alert alert-"+r.Color
@@ -26,6 +29,7 @@ function getNotifications() {
                 btn.setAttribute('endpoint', c.Endpoint)
                 btn.addEventListener('click', ((x) => {
                     fetch(x.target.attributes.endpoint.nodeValue)
+                        .then(x => getNotifications())
                     getNotifications()
                 }))
                 content.appendChild(btn)
@@ -35,4 +39,4 @@ function getNotifications() {
     })
 }
 getNotifications()
-setInterval(getNotifications, 5000)
+setInterval(getNotifications, 30000)
