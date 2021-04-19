@@ -11,7 +11,7 @@ function ok {
 root=$(dirname $0)
 cd "$root"
 root=$(pwd)
-vcode=$(cat ../VERSION_CODE | head -1)
+vcode="$GITVERSION-"$(cat ../VERSION_CODE | head -1)
 echo "Building JW Study - version: $vcode";
 rm -rf out || true
 mkdir out
@@ -138,7 +138,7 @@ do
     cd debian-deb-$arch
     ARCH=$arch checkinstall --install=no \
         --pkgname="jwstudy" \
-        --pkgversion=1.0.0-"$GITVERSION"-"$vcode" \
+        --pkgversion=1.0.0"$vcode" \
         --pkgarch="$arch" \
         --pkgrelease=1 \
         --pkgsource="git.mrcyjanek.net/mrcyjanek/jwapi" \
