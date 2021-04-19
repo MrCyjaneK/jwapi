@@ -26,6 +26,7 @@ function getNotifications() {
                 btn.setAttribute('endpoint', c.Endpoint)
                 btn.addEventListener('click', ((x) => {
                     fetch(x.target.attributes.endpoint.nodeValue)
+                    getNotifications()
                 }))
                 content.appendChild(btn)
             }
@@ -34,4 +35,4 @@ function getNotifications() {
     })
 }
 getNotifications()
-setInterval(getNotifications, 2500)
+setInterval(getNotifications, 5000)
