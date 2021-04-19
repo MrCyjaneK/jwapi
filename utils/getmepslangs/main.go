@@ -27,7 +27,7 @@ func main() {
 
 	helpers.Mkdir(dataDir + "/raw")
 	helpers.DBInit(dataDir)
-	libjw.GetCatalog(dataDir + "/raw/catalog.db")
+	libjw.GetCatalog(dataDir+"/raw/catalog.db", false)
 	var publications []structs.DBPublication
 
 	jsonData, err := ioutil.ReadFile(dataDir + "/catalog/Publication.json")

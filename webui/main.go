@@ -21,6 +21,7 @@ func Start() {
 	html := packr.New("webui", "./html")
 	http.Handle("/", http.FileServer(html))
 	http.HandleFunc("/api/", api)
+	http.HandleFunc("/api/alerts", apiAlerts)
 	http.HandleFunc("/api/db/get/", apiDBget)
 	http.HandleFunc("/api/db/set/", apiDBset)
 	http.HandleFunc("/api/publicationList/", apiPublicationList)

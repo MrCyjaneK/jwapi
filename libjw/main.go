@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -27,7 +28,38 @@ import (
 var Publications = make(map[string]*structs.Publication)
 
 // GetCatalog downloads catalog.db
-func GetCatalog(path string) {
+func GetCatalog(path string, onlyifrequired bool) {
+	if onlyifrequired {
+		if string(helpers.Get("catalog_downloaded")) == "yes" {
+			go func() {
+				fmt.Println("[libjw][GetCatalog] Fetching version... (1)")
+				version := jwhttp.CatalogsPublicationsV4Manifest().Current
+				if version == string(helpers.Get("catalog_version")) {
+					fmt.Println("[libjw][GetCatalog] Catalog is up to date (2)")
+					return
+				}
+				var callbacks []AlertCallback
+				callbacks = append(callbacks, AlertCallback{
+					Title:    "Cancel",
+					Endpoint: "/api/alerts/cancel/" + strconv.Itoa(len(Alerts)),
+				})
+				callbacks = append(callbacks, AlertCallback{
+					Title:    "Update",
+					Endpoint: "/api/updateCatalog",
+				})
+				Alerts = append(Alerts, Alert{
+					Title:       "New version of catalog is available!",
+					Description: "Current version of publications catalog is '" + string(helpers.Get("catalog_version")) + "' while on JW server there is a version '" + version + "'" + ".\nThere is no need to update, unless you are waiting for new publication. After clicking update, a 50mb file will be downloaded, consider updating on a unmetred network.",
+					Color:       "info",
+					Cause:       "[libjw][GetCatalog]",
+					Callbacks:   callbacks,
+				})
+			}()
+			return
+		} else {
+			log.Println("[libjw][GetCatalog] - forcing update of catalog because.")
+		}
+	}
 	fmt.Println("[libjw][GetCatalog] Fetching version...")
 	version := jwhttp.CatalogsPublicationsV4Manifest().Current
 	if version == string(helpers.Get("catalog_version")) {
@@ -42,12 +74,12 @@ func GetCatalog(path string) {
 	reader, err := gzip.NewReader(catalogBytesReader)
 	if err != nil {
 		fmt.Println(err)
-		os.Exit(1)
+		return
 	}
 	catalog, err := ioutil.ReadAll(reader)
 	if err != nil {
 		fmt.Println(err)
-		os.Exit(1)
+		return
 	}
 	fmt.Println("[libjw][GetCatalog] Writing to " + path)
 	ioutil.WriteFile(path, catalog, 0770)
@@ -55,15 +87,16 @@ func GetCatalog(path string) {
 	fmt.Println("[libjw][GetCatalog] Done")
 	helpers.Mkdir(helpers.GetDataDir() + "/catalog")
 	ParseCatalog(helpers.GetDataDir()+"/raw/catalog.db", helpers.GetDataDir()+"/catalog")
+	helpers.Set("catalog_downloaded", []byte("yes"))
 }
 
 // ParseCatalog - convert sqlite3 catalog.db into few json files
-func ParseCatalog(catalog string, target string) {
+func ParseCatalog(catalog string, target string) error {
 	fmt.Println("[libjw][ParseCatalog] start")
 	db, err := sql.Open("sqlite3", catalog)
 	if err != nil {
 		fmt.Println(err)
-		os.Exit(1)
+		return err
 	}
 	defer db.Close()
 
@@ -524,6 +557,7 @@ func ParseCatalog(catalog string, target string) {
 	wg.Done()
 	wg.Wait()
 	fmt.Println("[libjw][ParseCatalog] end")
+	return nil
 }
 
 // BuildPublications fill Publications map with all publications
