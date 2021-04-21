@@ -22,6 +22,35 @@ So is jwapi better?
 
 Well. You can make it better, simply submit a PR.
 
+
+<!--
+ ✅ Done
+ ❎ Done, but have issues
+ ❌ Todo
+ -->
+# Features (UX)
+|    |       |
+| -- | ----- |
+| ✅ | Downloading publications, to use them offline is made simpler - you just click on the publication. |
+| ✅ | No unnecessary permissions required - no need to read files on your device, app uses OS-specific path that doesn't require any permissions |
+| ❎ | Study on computer, phone, and have the same highlights on both devices |
+| ❎ | Highlighting content |
+| ❌ | Video/Audio files support |
+| ❌ | Notes |
+| ❌ | Backups (for now just copy `~/LibJWgo/db/`) |
+
+
+# Features (Techy)
+
+|    |       |
+| -- | ----- |
+| ✅ | Same app on every platform - HTML, CSS and JS for the frontend and Golang for the backend |
+| ✅ | No special permissions required, app doesn't register any handlers (android - you can open any file with JW Library...) | 
+| ✅ | Use same API as JW Library |
+| ✅ | Give you better control of what is going on in the background. |
+| ❎ | Package `jwstudy` for all systems (check dist/ directory) |
+| ❌ | Convert JWPUB into Epub | 
+
 # Installation
 
 You can go directly to [my ci](https://ci.mrcyjanek.net/jobs/build-jwapi) do grab a binary for your system, or use platform-specific way of doing so:
