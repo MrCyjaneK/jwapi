@@ -39,4 +39,4 @@ function getNotifications() {
     })
 }
 getNotifications()
-setInterval(getNotifications, 30000)
+setInterval(getNotifications, 5000)

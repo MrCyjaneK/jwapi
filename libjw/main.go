@@ -47,7 +47,7 @@ func GetCatalog(path string, onlyifrequired bool) {
 					Title:    "Update",
 					Endpoint: "/api/updateCatalog",
 				})
-				Alerts = append(Alerts, Alert{
+				CreateAlert(Alert{
 					Title:       "New version of catalog is available!",
 					Description: "Current version of publications catalog is '" + string(helpers.Get("catalog_version")) + "' while on JW server there is a version '" + version + "'" + ".\nThere is no need to update, unless you are waiting for new publication. After clicking update, a 50mb file will be downloaded, consider updating on a unmetred network.",
 					Color:       "info",
@@ -67,8 +67,14 @@ func GetCatalog(path string, onlyifrequired bool) {
 		return
 	}
 	fmt.Println("[libjw][GetCatalog] version: " + version)
+	alert := CreateAlert(Alert{
+		Title:       "Updating catalog...",
+		Description: "Version: " + version,
+	})
 	fmt.Println("[libjw][GetCatalog] Downloading gzipped catalog")
+	UpdateDescription(alert, "Updating catalog...", "Downloading gzipped catalog")
 	catalogBytesGz := jwhttp.CatalogsPublicationsV4CatalogDbGz(version)
+	UpdateDescription(alert, "Updating catalog...", "Extracting...")
 	fmt.Println("[libjw][GetCatalog] Extracting...")
 	catalogBytesReader := bytes.NewReader(catalogBytesGz)
 	reader, err := gzip.NewReader(catalogBytesReader)
@@ -82,8 +88,10 @@ func GetCatalog(path string, onlyifrequired bool) {
 		return
 	}
 	fmt.Println("[libjw][GetCatalog] Writing to " + path)
+	UpdateDescription(alert, "Updating catalog...", "Writing...")
 	ioutil.WriteFile(path, catalog, 0770)
 	helpers.Set("catalog_version", []byte(version))
+	DeleteAlert(alert)
 	fmt.Println("[libjw][GetCatalog] Done")
 	helpers.Mkdir(helpers.GetDataDir() + "/catalog")
 	ParseCatalog(helpers.GetDataDir()+"/raw/catalog.db", helpers.GetDataDir()+"/catalog")
