@@ -112,12 +112,13 @@ func apiPublications(w http.ResponseWriter, req *http.Request) {
 				<link rel="stylesheet" href="/static/styles.css">
 				<script src="/static/jquery-3.6.0.min.js"></script>
 				<script src="/static/common.js"></script>
-				<script src="/static/reader.js"></script>
 			</head>
 			<body>
 				` + script + `
 				` + selector + `
 				<hr />
+				<script src="/static/TextHighlighter.js"></script>
+				<script src="/static/reader.js"></script>
 		</body>`
 		fmt.Fprint(w, html)
 		return
@@ -174,6 +175,7 @@ func apiPublications(w http.ResponseWriter, req *http.Request) {
 			<head>
 				<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 				<link rel="stylesheet" href="/static/styles.css">
+				<script src="/static/common.js"></script>
 				<script src="/static/jquery-3.6.0.min.js"></script>
 				<script>
 					const publication = "` + publication + `";
@@ -189,6 +191,7 @@ func apiPublications(w http.ResponseWriter, req *http.Request) {
 				<!-- inject html end -->
 				` + selector + `
 				` + script + `
+				<script src="/static/TextHighlighter.js"></script>
 				<script src="/static/reader.js"></script>
 		</body>`
 	fmt.Fprint(w, html)
