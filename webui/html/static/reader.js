@@ -5,7 +5,6 @@ function saveHighlight() {
 var sandbox = document.getElementById('bookcontent');
 var hltr = new TextHighlighter(sandbox, {
   onBeforeHighlight: function (range) {
-    //console.log('Selected text: ' + range + '\nReally highlight?');
     return true
   },
   onAfterHighlight: function (range, highlights) {
