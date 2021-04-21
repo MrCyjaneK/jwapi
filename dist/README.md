@@ -2,7 +2,7 @@
 
 JW Study aim to be usable on every platform, no matter if it is your 512mb/8gb android 4.1 device, modern android 11 device, some Ubuntu Touch running via halium, postmarketOS (without usable calls), or your desktop device running Debian, or that crap m$ made.
 
-On every device app shoud look exactly the same. If you want to port it to new OS, you need to create a simple wrapper, that will:
+On every device app should look exactly the same. If you want to port it to new OS, you need to create a simple wrapper, that will:
 
 1. Run binary made for that os/arch combo
 2. Open 127.0.0.1:???? in a full screen mode.
