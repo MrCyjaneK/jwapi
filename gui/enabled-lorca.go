@@ -1,4 +1,4 @@
-// +build gui
+// +build gui-lorca
 
 package gui
 
