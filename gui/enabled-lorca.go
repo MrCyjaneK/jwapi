@@ -1,5 +1,4 @@
-// +build gui-lorca
-
+// +build gui
 package gui
 
 import (
