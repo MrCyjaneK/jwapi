@@ -455,10 +455,10 @@
 
     /**
      * Highlights current range.
-     * @param {boolean} keepRange - Don't remove range after highlighting. Default: false.
+     * @param {boolean} keepRange - Don't remove range after highlighting. Default: true.
      * @memberof TextHighlighter
      */
-    TextHighlighter.prototype.doHighlight = function (keepRange) {
+    TextHighlighter.prototype.doHighlight = function (keepRange = true) {
         var range = dom(this.el).getRange(),
             wrapper,
             createdHighlights,
