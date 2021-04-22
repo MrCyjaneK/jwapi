@@ -34,6 +34,7 @@ function initColorPicker() {
       var rgba = imgData.data;
       var color = "rgba(" + rgba[0] + ", " + rgba[1] + ", " + rgba[2] + ", " + rgba[3] + ")";
       console.log("%c" + color, "color:" + color)
+      addColor(color)
     }
   }
   
