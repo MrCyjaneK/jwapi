@@ -26,25 +26,25 @@ cd "$builddir"
 mkdir bin
 echo "/ Linux builds - daemon."
 echo -n -e "|- bin/jwstudy_linux_386.........."
-CGO_ENABLED=1 CC=i686-linux-gnu-gcc CXX=i686-linux-gnu-g++ GOOS=linux GOARCH=386     go build -o bin/jwstudy_linux_386 -tags gui ../../ && ok
+CGO_ENABLED=1 PKG_CONFIG_PATH=/usr/lib/i686-linux-gnu/pkgconfig/ HOST=i686-linux-gnu CC=i686-linux-gnu-gcc CXX=i686-linux-gnu-g++ GOOS=linux GOARCH=386     go build -o bin/jwstudy_linux_386 -tags gui ../../ && ok
 echo -n -e "|- bin/jwstudy_linux_amd64........"
 CGO_ENABLED=1 GOOS=linux GOARCH=amd64   go build -o bin/jwstudy_linux_amd64 -tags gui ../../ && ok
 echo -n -e "|- bin/jwstudy_linux_arm.........."
-CGO_ENABLED=1 CC=arm-linux-gnueabi-gcc CXX=arm-linux-gnueabi-g++ GOOS=linux GOARCH=arm     go build -o bin/jwstudy_linux_arm -tags gui ../../ && ok
+CGO_ENABLED=1 PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig/ HOST=arm-linux-gnueabihf CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ GOOS=linux GOARCH=arm     go build -o bin/jwstudy_linux_arm -tags gui ../../ && ok
 echo -n -e "\_ bin/jwstudy_linux_arm64........"
-CGO_ENABLED=1 CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ GOOS=linux GOARCH=arm64   go build -o bin/jwstudy_linux_arm64 -tags gui ../../ && ok
+CGO_ENABLED=1 PKG_CONFIG_PATH=/usr/lib/aarch64-linux-gnu/pkgconfig/ HOST=aarch64-linux-gnu CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ GOOS=linux GOARCH=arm64   go build -o bin/jwstudy_linux_arm64 -tags gui ../../ && ok
 echo "/ Windows builds - daemon"
 echo -n -e "|- bin/jwstudy_windows_386.exe...."
-CGO_ENABLED=1 CC=i686-w64-mingw32-gcc CXX=i686-w64-mingw32-g++ GOOS=windows GOARCH=386   go build -o bin/jwstudy_windows_386.exe -tags gui ../../ && ok
+CGO_ENABLED=1 HOST= CC=i686-w64-mingw32-gcc CXX=i686-w64-mingw32-g++ GOOS=windows GOARCH=386   go build -o bin/jwstudy_windows_386.exe -tags gui ../../ && ok
 echo -n -e "|- bin/jwstudy_windows_amd64.exe.."
-CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ GOOS=windows GOARCH=amd64 go build -o bin/jwstudy_windows_amd64.exe -tags gui ../../ && ok
+CGO_ENABLED=1 HOST= CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ GOOS=windows GOARCH=amd64 go build -o bin/jwstudy_windows_amd64.exe -tags gui ../../ && ok
 #echo -n -e "\_ bin/jwstudy_windows_arm.exe...."
 #CGO_ENABLED=1 GOOS=windows GOARCH=arm go build -o bin/jwstudy_windows_arm.exe -tags gui ../../ && ok
 echo "/ ubtouch builds - daemon (custom location)"
 echo -n -e "|- bin/jwstudy_ubtouch_arm64......"
 CGO_ENABLED=1 CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ GOOS=linux GOARCH=arm64   go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon -X main.Port=8080" -tags nogui -o bin/jwstudy_ubtouch_arm64 ../../ && ok
 echo -n -e "|- bin/jwstudy_ubtouch_arm........"
-CGO_ENABLED=1 CC=arm-linux-gnueabi-gcc CXX=arm-linux-gnueabi-g++ GOOS=linux GOARCH=arm     go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon -X main.Port=8080" -tags nogui -o bin/jwstudy_ubtouch_arm ../../ && ok
+CGO_ENABLED=1 CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ GOOS=linux GOARCH=arm     go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon -X main.Port=8080" -tags nogui -o bin/jwstudy_ubtouch_arm ../../ && ok
 echo -n -e "\_ bin/jwstudy_ubtouch_amd64......"
 CGO_ENABLED=1 GOOS=linux GOARCH=amd64   go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon -X main.Port=8080" -tags nogui -o bin/jwstudy_ubtouch_amd64 ../../ && ok
 if [[ "X$SKIPANDROID" == "X" ]];
