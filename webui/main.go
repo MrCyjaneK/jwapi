@@ -25,6 +25,7 @@ func Start() {
 	http.HandleFunc("/api/alerts/cancel/", apiAlertsCancel)
 	http.HandleFunc("/api/db/get/", apiDBget)
 	http.HandleFunc("/api/db/set/", apiDBset)
+	http.HandleFunc("/api/getIP", apiGetIP)
 	http.HandleFunc("/api/publicationList/", apiPublicationList)
 	http.HandleFunc("/api/publications/", apiPublications)
 	http.HandleFunc("/api/publications_index/", apiPublicationIndex)

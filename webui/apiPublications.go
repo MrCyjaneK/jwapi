@@ -175,6 +175,7 @@ func apiPublications(w http.ResponseWriter, req *http.Request) {
 			<head>
 				<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 				<link rel="stylesheet" href="/static/styles.css">
+				<link rel="stylesheet" href="/static/modal.css">
 				<script src="/static/common.js"></script>
 				<script src="/static/jquery-3.6.0.min.js"></script>
 				<script>
@@ -193,6 +194,11 @@ func apiPublications(w http.ResponseWriter, req *http.Request) {
 				` + script + `
 				<script src="/static/TextHighlighter.js"></script>
 				<script src="/static/reader.js"></script>
+				<script src="/static/modal.js"></script>
+				<script src="/static/colorpicker.js"></script>
+				<div id="modal" class="modal">
+					<div id="modal-content" class="modal-content"></div>
+				</div>
 		</body>`
 	fmt.Fprint(w, html)
 }

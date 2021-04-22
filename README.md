@@ -33,10 +33,11 @@ Well. You can make it better, simply submit a PR.
 | -- | ----- |
 | ✅ | Downloading publications, to use them offline is made simpler - you just click on the publication. |
 | ✅ | No unnecessary permissions required - no need to read files on your device, app uses OS-specific path that doesn't require any permissions |
-| ❎ | Study on computer, phone, and have the same highlights on both devices |
-| ❎ | Highlighting content |
+| ✅ | Study on computer, phone, and have the same highlights on both devices |
+| ✅ | Highlighting content |
 | ❌ | Video/Audio files support |
-| ❌ | Notes |
+| ✅ | Notes |
+| ❌ | Searching in noted |
 | ❌ | Backups (for now just copy `~/LibJWgo/db/`) |
 
 

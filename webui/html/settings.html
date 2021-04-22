@@ -18,6 +18,7 @@
 
   <!-- Generic script with all needed content -->
   <script src="/static/common.js"></script>
+  <script src="/static/colorpicker.js"></script>
 </head>
 
 <body>
@@ -51,9 +52,20 @@
 
       <div class="container-fluid">
         <label for="lang">Choose language (only for publications, UI is english-only atm)</label>
-
         <select onchange="langChange(this.value)" name="lang" id="lang"></select><br />
+        <hr />
+        <p>Pick favourite colors:</p>
+        <p></p>
+        <canvas style="width: 100%; max-width: 300px;" id="colorCanvas" class="color-canvas" width="100%" height="100%"></canvas><br />
+        <script>initColorPicker()</script>
+        <div id="colors-list" class="colors-list"></div>
+        <script>loadColorsList()</script>
       </div>
+
+      <hr />
+      <h3>Remote studying</h3>
+      You can study remotely, make notes on your other device, and keep them here by going to one of the following addresses on second device that is in the same network
+      <ul id="iplist"></ul>
     </div>
     <!-- /#page-content-wrapper -->
 
@@ -70,6 +82,20 @@
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+  </script>
+  <!-- Load ip list -->
+  <script>
+    fetch("/api/getIP")
+    .then(response => response.json())
+    .then((response) => {
+        for (i in response) {
+          ip = response[i]
+          li = document.createElement('li')
+          li.innerText = ip
+          document.getElementById('iplist').appendChild(li)
+        }
+    })
+    
   </script>
   <!-- Load all languages into select element -->
   <script>
