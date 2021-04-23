@@ -228,6 +228,8 @@ So a couple of jpegs, and a fg_E.db. I think that we all know how images work, s
 
 # /contents/fg_E.db
 
+(hidden info in source (a failed attempt))
+<!-- 
 This file is a sqlite3 database, here is a little overview of what is inside... It's a lot of stuff.
 I've used this simple script to prepare the files in pubcode_db/ directory
 
@@ -258,6 +260,5 @@ for table in (sqlite3 fg_E.jwpub/contents/fg_E.db .tables | xargs | tr " " "\n")
     echo "" >> ../docs/jwpub/pubcode_db/"$table".md
 end
 ```
-
-\[EDIT: That didn't work well, nvm\] 
+-->
 
