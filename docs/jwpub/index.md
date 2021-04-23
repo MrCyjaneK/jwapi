@@ -242,59 +242,22 @@ for table in (sqlite3 fg_E.jwpub/contents/fg_E.db .tables | xargs | tr " " "\n")
     end
     echo "" >> ../docs/jwpub/pubcode_db/"$table".md
     echo -n -e '|' >> ../docs/jwpub/pubcode_db/"$table".md 
-    for i in (sqlite3 fg_E.jwpub/contents/fg_E.db "PRAGMA table_info(Asset)" | tr '|' ' ' | awk  '{print $2}')
+    for i in (sqlite3 fg_E.jwpub/contents/fg_E.db "PRAGMA table_info($table)" | tr '|' ' ' | awk  '{print $2}')
         echo -n -e " $i |" >> ../docs/jwpub/pubcode_db/"$table".md
     end
     echo "" >> ../docs/jwpub/pubcode_db/"$table".md
     echo -n -e '|' >> ../docs/jwpub/pubcode_db/"$table".md
-    for i in (sqlite3 fg_E.jwpub/contents/fg_E.db "PRAGMA table_info(Asset)" | tr '|' ' ' | awk  '{print $2}')
+    for i in (sqlite3 fg_E.jwpub/contents/fg_E.db "PRAGMA table_info($table)" | tr '|' ' ' | awk  '{print $2}')
         echo -n -e " - |" >> ../docs/jwpub/pubcode_db/"$table".md
     end
     echo "" >> ../docs/jwpub/pubcode_db/"$table".md
-    for i in (sqlite3 fg_E.jwpub/contents/fg_E.db "SELECT * FROM $table LIMIT 5;")
-        echo "|$i|" >> ../docs/jwpub/pubcode_db/"$table".md
+    for j in (sqlite3 fg_E.jwpub/contents/fg_E.db "PRAGMA table_info($table)" | tr '|' ' ' | awk  '{print $2}')
+        set i (sqlite3 fg_E.jwpub/contents/fg_E.db "SELECT $j FROM $table LIMIT 1;")
+        echo -n -e "|$i|" >> ../docs/jwpub/pubcode_db/"$table".md
     end
+    echo "" >> ../docs/jwpub/pubcode_db/"$table".md
 end
 ```
 
- - [Asset](pubcode_db/Asset.md)
- - [PublicationViewItemDocument](pubcode_db/PublicationViewItemDocument.md)
- - [BibleCitation](pubcode_db/BibleCitation.md)
- - [PublicationViewItemField](pubcode_db/PublicationViewItemField.md)
- - [DatedText](pubcode_db/DatedText.md)
- - [PublicationViewSchema](pubcode_db/PublicationViewSchema.md)
- - [Document](pubcode_db/Document.md)
- - [PublicationYear](pubcode_db/PublicationYear.md)
- - [DocumentEndnote](pubcode_db/DocumentEndnote.md)
- - [Question](pubcode_db/Question.md)
- - [DocumentExtract](pubcode_db/DocumentExtract.md)
- - [RefPublication](pubcode_db/RefPublication.md)
- - [DocumentMultimedia](pubcode_db/DocumentMultimedia.md)
- - [RelatedDocument](pubcode_db/RelatedDocument.md)
- - [DocumentParagraph](pubcode_db/DocumentParagraph.md)
- - [SearchIndexBibleVerse](pubcode_db/SearchIndexBibleVerse.md)
- - [Endnote](pubcode_db/Endnote.md)
- - [SearchIndexDocument](pubcode_db/SearchIndexDocument.md)
- - [Extract](pubcode_db/Extract.md)
- - [SearchTextRangeBibleVerse](pubcode_db/SearchTextRangeBibleVerse.md)
- - [Footnote](pubcode_db/Footnote.md)
- - [SearchTextRangeDocument](pubcode_db/SearchTextRangeDocument.md)
- - [Multimedia](pubcode_db/Multimedia.md)
- - [TextUnit](pubcode_db/TextUnit.md)
- - [ParagraphCommentary](pubcode_db/ParagraphCommentary.md)
- - [Topic](pubcode_db/Topic.md)
- - [ParagraphCommentaryMap](pubcode_db/ParagraphCommentaryMap.md)
- - [TopicDocument](pubcode_db/TopicDocument.md)
- - [Publication](pubcode_db/Publication.md)
- - [VerseCommentary](pubcode_db/VerseCommentary.md)
- - [PublicationAttribute](pubcode_db/PublicationAttribute.md)
- - [VerseCommentaryMap](pubcode_db/VerseCommentaryMap.md)
- - [PublicationCategory](pubcode_db/PublicationCategory.md)
- - [VideoMarker](pubcode_db/VideoMarker.md)
- - [PublicationIssueAttribute](pubcode_db/PublicationIssueAttribute.md)
- - [VideoMarkerParagraphLocation](pubcode_db/VideoMarkerParagraphLocation.md)
- - [PublicationIssueProperty](pubcode_db/PublicationIssueProperty.md)
- - [Word](pubcode_db/Word.md)
- - [PublicationView](pubcode_db/PublicationView.md)
- - [android_metadata](pubcode_db/android_metadata.md)
- - [PublicationViewItem](pubcode_db/PublicationViewItem.md)
+\[EDIT: That didn't work well, nvm\] 
+
