@@ -6,8 +6,8 @@
 |1|PublicationViewItemId|INTEGER|0||0|
 |2|DocumentId|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| PublicationViewItemDocumentId | PublicationViewItemId | DocumentId |
+| - | - | - |
 |1|2|0|
 |2|3|1|
 |3|4|2|

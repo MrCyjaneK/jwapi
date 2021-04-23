@@ -6,6 +6,6 @@
 |1|PublicationId||0||0|
 |2|Category|TEXT|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| PublicationCategoryId | PublicationId | Category |
+| - | - | - |
 |1|1|brch|

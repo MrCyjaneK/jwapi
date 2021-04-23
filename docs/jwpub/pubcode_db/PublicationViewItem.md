@@ -10,8 +10,8 @@
 |5|ChildTemplateSchemaType|INTEGER|0||0|
 |6|DefaultDocumentId|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| PublicationViewItemId | PublicationViewId | ParentPublicationViewItemId | Title | SchemaType | ChildTemplateSchemaType | DefaultDocumentId |
+| - | - | - | - | - | - | - |
 |1|1|-1|Good News|0|0|-1|
 |2|1|1|Good News From God!|0||0|
 |3|1|1|Title Page/Publishers’ Page|0||1|

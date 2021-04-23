@@ -28,8 +28,8 @@
 |23|LastPageNumber|INTEGER|0||0|
 |24|ContentLength|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| DocumentId | PublicationId | MepsDocumentId | MepsLanguageIndex | Class | Type | SectionNumber | ChapterNumber | Title | TocTitle | ContextTitle | FeatureTitle | Subtitle | FeatureSubtitle | Content | FirstFootnoteId | LastFootnoteId | FirstBibleCitationId | LastBibleCitationId | ParagraphCount | HasMediaLinks | HasLinks | FirstPageNumber | LastPageNumber | ContentLength |
+| - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
 |0|1|1102012181|0|39|0|0||Good News From God!|Good News From God!|||||ã5(Ø$à‰ Ä:¶rvf‰æd(š¸ˆþ4ÐÑˆH.X %Õ[Í±ÂêŠµT9½¿.‰áºz¶…màåË¥¯½HbÙ*)œz¥Nµ	A÷•.Uçö€Êvß…$bøj˜kã¯xHyô8ø?ëÐŸŸHÞÙüñ÷9½[×¦›ÃÎÖœ¤rC˜%v!«¶åV8|||||2|1|1|1|1|395|
 |1|1|1102012180|0|18|0|0||Title Page/Publishersâ€™ Page|Title Page/Publishersâ€™ Page|Title Page/â€‹Publishersâ€™ Page||||ì×Ã\ùêòò²Ê© ¤‚1æióY09‚üÍ}±±^–~Ñ( Q£ÐËd¶™6„¹cådˆ¢(–E|¾€¯T9GZqá†–†D*û5î²u(s†P—»>|	V2wTcß;â:Åm857¢£UT”ÆnÀËøÃú	|
 |~Fá4óò`˜wŒçÍòeül¶òë@ Îç7‰ëû­X0µcEq)xT¸¼’ï'¤‚ª/Œ˜•ÊtÃK[´È_£“³„7¼	À|

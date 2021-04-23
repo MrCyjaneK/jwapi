@@ -6,5 +6,5 @@
 |1|PublicationId|INTEGER|0||0|
 |2|Attribute|TEXT|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| PublicationAttributeId | PublicationId | Attribute |
+| - | - | - |

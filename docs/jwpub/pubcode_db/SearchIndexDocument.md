@@ -10,8 +10,8 @@
 |5|PositionalList|BLOB|0||0|
 |6|PositionalListIndex|BLOB|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| SearchIndexDocumentId | WordId | TextUnitCount | WordOccurrenceCount | TextUnitIndices | PositionalList | PositionalListIndex |
+| - | - | - | - | - | - | - |
 |1|1|5|6|…ƒ‚†|u	‚i	ƒSJ‚|‚|
 |2|2|1|1|ˆ|W‚||
 |3|3|16|22|‚‚|ˆ‡…‰É†øŠ‚V‚‰‡ƒ‰ˆˆˆ‰‰ˆ†|‚‚‚ƒ‚|

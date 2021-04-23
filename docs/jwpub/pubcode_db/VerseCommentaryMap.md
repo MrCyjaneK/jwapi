@@ -6,5 +6,5 @@
 |1|BibleVerseId|INTEGER|0||0|
 |2|VerseCommentaryId|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| VerseCommentaryMapId | BibleVerseId | VerseCommentaryId |
+| - | - | - |

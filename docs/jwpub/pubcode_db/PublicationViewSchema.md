@@ -6,6 +6,6 @@
 |1|SchemaType|INTEGER|0||0|
 |2|DataType|TEXT|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| PublicationViewSchemaId | SchemaType | DataType |
+| - | - | - |
 |1|0|name|

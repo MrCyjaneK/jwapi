@@ -6,5 +6,5 @@
 |1|DocumentParagraphId|INTEGER|0||0|
 |2|VideoMarkerId|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| VideoMarkerParagraphLocationId | DocumentParagraphId | VideoMarkerId |
+| - | - | - |

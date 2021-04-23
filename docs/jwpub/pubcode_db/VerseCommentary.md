@@ -7,5 +7,5 @@
 |2|Label|TEXT|0||0|
 |3|Content|BLOB|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
+| VerseCommentaryId | CommentaryType | Label | Content |
 | - | - | - | - |

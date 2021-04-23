@@ -6,6 +6,6 @@
 |1|Name|TEXT|0||0|
 |2|Symbol|TEXT|1||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| PublicationViewId | Name | Symbol |
+| - | - | - |
 |1|JW App Publication|jwpub|

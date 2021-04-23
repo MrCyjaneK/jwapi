@@ -6,5 +6,5 @@
 |1|DocumentId|INTEGER|0||0|
 |2|TopicId|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| TopicDocumentId | DocumentId | TopicId |
+| - | - | - |

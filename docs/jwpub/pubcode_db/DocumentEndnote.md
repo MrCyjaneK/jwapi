@@ -8,5 +8,5 @@
 |3|ParagraphOrdinal|INTEGER|0||0|
 |4|EndnoteId|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| DocumentEndnoteId | DocumentId | EndnoteIndex | ParagraphOrdinal | EndnoteId |
+| - | - | - | - | - |

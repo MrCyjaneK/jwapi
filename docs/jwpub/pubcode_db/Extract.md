@@ -11,8 +11,8 @@
 |6|RefBeginParagraphOrdinal|INTEGER|0||0|
 |7|RefEndParagraphOrdinal|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| ExtractId | Link | Caption | Content | RefPublicationId | RefMepsDocumentId | RefBeginParagraphOrdinal | RefEndParagraphOrdinal |
+| - | - | - | - | - | - | - | - |
 |1|p/E:1102005132/|<span class="eloc">bh pp. 18-26</span> <span class="etitle">The Bibleâ€”A Book From God</span>|©ÄÅÅıWÂm­¿”JêLwÜøªäÚl?µ1æõË¦qÈ,|Hş¢í÷jD(Ê¦èvàÜ,ïõ¿{è2+lÑ¯Ô)¼€WJ¯ÙúÌ2iñà(/PaO7d×ÊÕÄçB¸¢&Ô¥ôR©ù%¥}9„“óÑ¬*®JÈU9Íæì1»ÔoKzé™ã€9¿41İ7ÈF­ha(ğ‘m†=¡×$=;e#Ø3.>[f&ÜÎ6²Á¡ÓßdØ‘C#?×PfıàÁ»Qâ¾[®Cú€¢¯ŸèÎ'~>x©ğDë>|Xí4sï‚)•_ÿ#ÿ[=aíDS«¬õÒåN,ƒÈ nıo®+Ã¾”è6¿ä7ÚlñäÌŠúÍ}üPß_j¿›­u|
 |DzşítslÍ>ÂFm&Ä@fƒú–{6ÿ˜œgçÕÉİYä?~ÉÂÂ*è‰âº8ZØ9fÎ¿Å—´~°ü;-ëê9_Ãc. ÎñĞBİN9¾Š İXÛKº`ËY{§š5j™ÍvyÀ¦aFF<z‹€|1|1102005132|||
 |2|p/E:1102005134/|<span class="eloc">bh pp. 37-46</span> <span class="etitle">Who Is Jesus Christ?</span>|oå]0…ß÷-n¢¡b[Ğªı@¾P"»vgÔ"O0“ƒ'ˆKf'>:ó7×®`jÍ,º«íR%ªØ|1@YÚ¨¸s”¿ªĞ¼i·ë×ƒïïïN¼¹–Ç——£káÇ	ã`úD0ÇÌ¿¢$¡Ğ€`q6¡±‚R]š?s»ÔDÿAå8'ô—C8Ûèƒ0|1|1102005134|||

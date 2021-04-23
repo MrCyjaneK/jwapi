@@ -8,8 +8,8 @@
 |3|BeginParagraphOrdinal|INTEGER|0||0|
 |4|EndParagraphOrdinal|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| DocumentExtractId | DocumentId | ExtractId | BeginParagraphOrdinal | EndParagraphOrdinal |
+| - | - | - | - | - |
 |1|6|1|16|16|
 |2|7|2|16|16|
 |3|7|3|16|16|

@@ -6,8 +6,8 @@
 |1|Word|TEXT|0||0|
 |2|Reading|TEXT|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| WordId | Word | Reading |
+| - | - | - |
 |1|000||
 |2|000-year||
 |3|1||

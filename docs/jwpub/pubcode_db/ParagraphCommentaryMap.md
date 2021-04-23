@@ -8,5 +8,5 @@
 |3|EndParagraphOrdinal|INTEGER|0||0|
 |4|ParagraphCommentaryId|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| ParagraphCommentaryMapId | MepsDocumentId | BeginParagraphOrdinal | EndParagraphOrdinal | ParagraphCommentaryId |
+| - | - | - | - | - |

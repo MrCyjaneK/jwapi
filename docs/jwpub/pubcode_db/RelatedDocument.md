@@ -7,5 +7,5 @@
 |2|MepsDocumentId|INTEGER|0||0|
 |3|RelationshipType|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
+| RelatedDocumentId | DocumentId | MepsDocumentId | RelationshipType |
 | - | - | - | - |

@@ -4,6 +4,6 @@
 | - | -- | -- | ----- | -------- | - |
 |0|locale|TEXT|0|'en_US'|0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| locale |
+| - |
 |en_US|

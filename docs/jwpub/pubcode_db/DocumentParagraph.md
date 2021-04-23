@@ -9,8 +9,8 @@
 |4|BeginPosition|INTEGER|0||0|
 |5|EndPosition|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| DocumentParagraphId | DocumentId | ParagraphIndex | ParagraphNumberLabel | BeginPosition | EndPosition |
+| - | - | - | - | - | - |
 |1|0|1||226|382|
 |2|0|2||||
 |3|1|1||10|179|

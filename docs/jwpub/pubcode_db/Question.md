@@ -10,5 +10,5 @@
 |5|TargetParagraphOrdinal|INTEGER|0||0|
 |6|TargetParagraphNumberLabel|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| QuestionId | DocumentId | QuestionIndex | Content | ParagraphOrdinal | TargetParagraphOrdinal | TargetParagraphNumberLabel |
+| - | - | - | - | - | - | - |

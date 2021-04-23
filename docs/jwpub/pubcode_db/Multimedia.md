@@ -22,8 +22,8 @@
 |17|MepsLanguageIndex|INTEGER|0||0|
 |18|IssueTagNumber|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| MultimediaId | LinkMultimediaId | DataType | MajorType | MinorType | Width | Height | MimeType | Label | Caption | CaptionContent | CreditLine | CategoryType | FilePath | KeySymbol | Track | MepsDocumentId | MepsLanguageIndex | IssueTagNumber |
+| - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
 |1||0|1|1|600|600|image/jpeg|||||9|1102012181_univ_sqr.jpg|||||0|
 |2||0|1|1|600|771|image/jpeg|People of different ages, races, and backgrounds||||15|1102012181_E_cvr.jpg||||0|0|
 |3||0|1|1|600|600|image/jpeg|||||9|1102012182_univ_sqr.jpg|||||0|

@@ -16,5 +16,5 @@
 |11|BeginTransitionFrameCount|INTEGER|0||0|
 |12|EndTransitionFrameCount|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| VideoMarkerId | MultimediaId | Label | Caption | SegmentFormat | StartTimeTicks | DurationTicks | StartFrame | FrameCount | BeginTransitionDurationTicks | EndTransitionDurationTicks | BeginTransitionFrameCount | EndTransitionFrameCount |
+| - | - | - | - | - | - | - | - | - | - | - | - | - |

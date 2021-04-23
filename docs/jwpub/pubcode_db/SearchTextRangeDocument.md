@@ -7,7 +7,7 @@
 |2|TextLengths|BLOB|0||0|
 |3|ScopeParagraphData|BLOB|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
+| TextUnitId | TextPositions | TextLengths | ScopeParagraphData |
 | - | - | - | - |
 |0|€………qƒ€€€€€€€€€€|„„„ƒ€€€€€€€€€€€€€€€|“€|
 |1|€††Œhƒ………qƒˆ…sƒ‰wƒ‚~ƒ†††„†ˆƒYƒ…Œƒ„„†ƒƒ‰ƒ…ƒ‚Š†Œ…ŠƒŠ|

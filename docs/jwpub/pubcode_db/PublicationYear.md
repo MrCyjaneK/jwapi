@@ -6,6 +6,6 @@
 |1|PublicationId||0||0|
 |2|Year|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| PublicationYearId | PublicationId | Year |
+| - | - | - |
 |1|1|2012|

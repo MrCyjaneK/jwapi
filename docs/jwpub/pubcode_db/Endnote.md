@@ -8,5 +8,5 @@
 |3|Label|TEXT|0||0|
 |4|Content|BLOB|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| EndnoteId | DocumentId | TextId | Label | Content |
+| - | - | - | - | - |

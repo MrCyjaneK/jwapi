@@ -16,5 +16,5 @@
 |11|Caption|TEXT|0||0|
 |12|Content|BLOB|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| DatedTextId | DocumentId | Link | FirstDateOffset | LastDateOffset | FirstFootnoteId | LastFootnoteId | FirstBibleCitationId | LastBibleCitationId | BeginParagraphOrdinal | EndParagraphOrdinal | Caption | Content |
+| - | - | - | - | - | - | - | - | - | - | - | - | - |

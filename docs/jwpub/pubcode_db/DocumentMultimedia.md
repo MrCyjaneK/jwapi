@@ -8,8 +8,8 @@
 |3|BeginParagraphOrdinal|INTEGER|0||0|
 |4|EndParagraphOrdinal|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| DocumentMultimediaId | DocumentId | MultimediaId | BeginParagraphOrdinal | EndParagraphOrdinal |
+| - | - | - | - | - |
 |1|0|1|||
 |2|0|2|1|1|
 |3|3|3|||

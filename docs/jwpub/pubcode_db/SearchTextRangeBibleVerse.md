@@ -6,5 +6,5 @@
 |1|TextPositions|BLOB|0||0|
 |2|TextLengths|BLOB|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| TextUnitId | TextPositions | TextLengths |
+| - | - | - |

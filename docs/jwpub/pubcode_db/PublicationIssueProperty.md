@@ -10,5 +10,5 @@
 |5|Symbol|TEXT|0||0|
 |6|UndatedSymbol|TEXT|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| PublicationIssuePropertyId | PublicationId | Title | UndatedTitle | CoverTitle | Symbol | UndatedSymbol |
+| - | - | - | - | - | - | - |

@@ -33,6 +33,6 @@
 |28|LastDatedTextDateOffset|DATE|0||0|
 |29|MepsBuildNumber|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| PublicationId | VersionNumber | Type | Title | RootSymbol | RootYear | RootMepsLanguageIndex | ShortTitle | DisplayTitle | ReferenceTitle | UndatedReferenceTitle | Symbol | UndatedSymbol | UniqueSymbol | EnglishSymbol | UniqueEnglishSymbol | IssueTagNumber | IssueNumber | Variation | Year | VolumeNumber | MepsLanguageIndex | PublicationType | PublicationCategorySymbol | BibleVersionForCitations | HasPublicationChapterNumbers | HasPublicationSectionNumbers | FirstDatedTextDateOffset | LastDatedTextDateOffset | MepsBuildNumber |
+| - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
 |1|8|1|Good News From God!|fg|2012|0|Good News|Good News  (fg)|Good News|Good News|fg|fg|fg|fg|fg|0|0||2012|0|0|Brochure|brch|NWTR|1|0|19691231|19691231|8427|

@@ -33,6 +33,6 @@
 |28|LastDatedTextDateOffset|DATE|0||0|
 |29|MepsBuildNumber|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| RefPublicationId | VersionNumber | Type | Title | RootSymbol | RootYear | RootMepsLanguageIndex | ShortTitle | DisplayTitle | ReferenceTitle | UndatedReferenceTitle | Symbol | UndatedSymbol | UniqueSymbol | EnglishSymbol | UniqueEnglishSymbol | IssueTagNumber | IssueNumber | Variation | Year | VolumeNumber | MepsLanguageIndex | PublicationType | PublicationCategorySymbol | BibleVersionForCitations | HasPublicationChapterNumbers | HasPublicationSectionNumbers | FirstDatedTextDateOffset | LastDatedTextDateOffset | MepsBuildNumber |
+| - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
 |1|8|1|What Does the Bible Really Teach?|bh|2014|0|Bible Teach|Bible Teach  (bh)|Bible Teach|Bible Teach|bh|bh|bh|bh|bh|0|0||2014|0|0|Book|bk|NWTR|1|0|||8427|

@@ -6,5 +6,5 @@
 |1|Topic|TEXT|0||0|
 |2|DisplayTopic|TEXT|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| TopicId | Topic | DisplayTopic |
+| - | - | - |

@@ -7,7 +7,7 @@
 |2|Value|TEXT|0||0|
 |3|Type|TEXT|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
+| PublicationViewItemFieldId | PublicationViewItemId | Value | Type |
 | - | - | - | - |
 |1|1|Good News|name|
 |2|2|Good News From God!|name|

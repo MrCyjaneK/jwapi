@@ -12,8 +12,8 @@
 |7|ParagraphOrdinal|INTEGER|0||0|
 |8|MarginalClassification|INTEGER|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| BibleCitationId | DocumentId | BlockNumber | ElementNumber | FirstBibleVerseId | LastBibleVerseId | BibleVerseId | ParagraphOrdinal | MarginalClassification |
+| - | - | - | - | - | - | - | - | - |
 |1|3|1|1|26127|26127||3|0|
 |2|3|1|2|26140|26140||3|0|
 |3|3|2|1|26854|26854||11|0|

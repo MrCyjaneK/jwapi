@@ -10,5 +10,5 @@
 |5|PositionalList|BLOB|0||0|
 |6|PositionalListIndex|BLOB|0||0|
 
-| AssetId | FilePath | Type | VersionNumber |
-| - | - | - | - |
+| SearchIndexBibleVerseId | WordId | TextUnitCount | WordOccurrenceCount | TextUnitIndices | PositionalList | PositionalListIndex |
+| - | - | - | - | - | - | - |
