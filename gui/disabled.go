@@ -1,3 +1,5 @@
+// +build nogui
+
 package gui
 
 import (
