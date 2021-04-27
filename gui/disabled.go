@@ -1,5 +1,3 @@
-// +build nogui
-
 package gui
 
 import (
@@ -10,7 +8,7 @@ import (
 )
 
 func Start() {
-	log.Println("[gui] Compile with `-tags gui` to enable gui, waiting on a infinite loop.")
+	log.Println("[gui] Compile with `-tags gui{browser,lorca,webview}` to enable gui, waiting on a infinite loop.")
 	cancelChan := make(chan os.Signal, 1)
 	signal.Notify(cancelChan, syscall.SIGTERM, syscall.SIGINT)
 	sig := <-cancelChan

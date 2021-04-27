@@ -1,4 +1,4 @@
-// +build !gui,!nogui
+// +build guibrowser
 
 package gui
 

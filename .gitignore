@@ -4,3 +4,6 @@ packrd
 jwapi
 main
 tmp/
+build/
+*.deb
+doc-pak

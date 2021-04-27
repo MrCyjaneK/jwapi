@@ -11,42 +11,38 @@ function ok {
 root=$(dirname $0)
 cd "$root"
 root=$(pwd)
-vcode="$GITVERSION-"$(cat ../VERSION_CODE | head -1)
+vcode="1.0.1-"$(cat ../VERSION_CODE | head -1)
 echo "Building JW Study - version: $vcode";
-rm -rf out || true
-mkdir out
-cd out
-builddir=$(pwd)
-
-cd ../..
+cd ..
+rm -rf build/
 ~/go/bin/packr2 clean
 ~/go/bin/packr2
-
-cd "$builddir"
-mkdir bin
-echo "/ Linux builds - daemon."
-echo -n -e "|- bin/jwstudy_linux_386.........."
-CGO_ENABLED=1 PKG_CONFIG_PATH=/usr/lib/i686-linux-gnu/pkgconfig/ HOST=i686-linux-gnu CC=i686-linux-gnu-gcc CXX=i686-linux-gnu-g++ GOOS=linux GOARCH=386     go build -o bin/jwstudy_linux_386 -tags gui ../../ && ok
-echo -n -e "|- bin/jwstudy_linux_amd64........"
-CGO_ENABLED=1 GOOS=linux GOARCH=amd64   go build -o bin/jwstudy_linux_amd64 -tags gui ../../ && ok
-echo -n -e "|- bin/jwstudy_linux_arm.........."
-CGO_ENABLED=1 PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig/ HOST=arm-linux-gnueabihf CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ GOOS=linux GOARCH=arm     go build -o bin/jwstudy_linux_arm -tags gui ../../ && ok
-echo -n -e "\_ bin/jwstudy_linux_arm64........"
-CGO_ENABLED=1 PKG_CONFIG_PATH=/usr/lib/aarch64-linux-gnu/pkgconfig/ HOST=aarch64-linux-gnu CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ GOOS=linux GOARCH=arm64   go build -o bin/jwstudy_linux_arm64 -tags gui ../../ && ok
-echo "/ Windows builds - daemon"
-echo -n -e "|- bin/jwstudy_windows_386.exe...."
-CGO_ENABLED=1 HOST= CC=i686-w64-mingw32-gcc CXX=i686-w64-mingw32-g++ GOOS=windows GOARCH=386   go build -o bin/jwstudy_windows_386.exe -tags gui ../../ && ok
-echo -n -e "|- bin/jwstudy_windows_amd64.exe.."
-CGO_ENABLED=1 HOST= CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ GOOS=windows GOARCH=amd64 go build -o bin/jwstudy_windows_amd64.exe -tags gui ../../ && ok
-#echo -n -e "\_ bin/jwstudy_windows_arm.exe...."
-#CGO_ENABLED=1 GOOS=windows GOARCH=arm go build -o bin/jwstudy_windows_arm.exe -tags gui ../../ && ok
+goprod \
+    -combo="linux/arm;linux/386;linux/arm64;linux/amd64;windows/amd64;windows/386" \
+    -binname="jwstudy-browser" \
+    -tags="guibrowser" \
+    -version="$vcode"
+goprod \
+    -combo="linux/arm;linux/386;linux/arm64;linux/amd64;windows/amd64;windows/386" \
+    -binname="jwstudy-lorca" \
+    -tags="guilorca" \
+    -version="$vcode"
+goprod \
+    -combo="linux/arm;linux/386;linux/arm64;linux/amd64;windows/amd64;windows/386" \
+    -binname="jwstudy-nogui" \
+    -tags="nogui" \
+    -version="$vcode"
+    
+    
 echo "/ ubtouch builds - daemon (custom location)"
 echo -n -e "|- bin/jwstudy_ubtouch_arm64......"
-CGO_ENABLED=1 CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ GOOS=linux GOARCH=arm64   go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon -X main.Port=8080" -tags nogui -o bin/jwstudy_ubtouch_arm64 ../../ && ok
-echo -n -e "|- bin/jwstudy_ubtouch_arm........"
-CGO_ENABLED=1 CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ GOOS=linux GOARCH=arm     go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon -X main.Port=8080" -tags nogui -o bin/jwstudy_ubtouch_arm ../../ && ok
-echo -n -e "\_ bin/jwstudy_ubtouch_amd64......"
-CGO_ENABLED=1 GOOS=linux GOARCH=amd64   go build --ldflags "-X main.dataDir=/home/phablet/.local/share/jwstudy.anon -X main.Port=8080" -tags nogui -o bin/jwstudy_ubtouch_amd64 ../../ && ok
+goprod \
+    -combo="linux/arm;linux/arm64;linux/amd64" \
+    -binname="jwstudy-ubtouch" \
+        -version="$vcode" \
+    -ldflags="-X main.dataDir=/home/phablet/.local/share/jwstudy.anon -X main.Port=8080" \
+    -package=false
+
 if [[ "X$SKIPANDROID" == "X" ]];
 then
     echo "/ android builds - daemon (custom location) + NDK"
@@ -54,21 +50,17 @@ then
     AV=21
     # NDK downloaded in android studio -> tools? -> sdk manager
     NDKV=$(ls ~/Android/Sdk/ndk/* -d | tr "/" "\n" | tail -1)
-    export ANDROID_HOME=~/Android/Sdk
-    export ANDROID_NDK_ROOT=~/Android/Sdk/ndk/$NDKV
     NDK=~/Android/Sdk/ndk/$NDKV/toolchains/llvm/prebuilt/linux-x86_64/bin
-    echo -n -e "|- bin/jwstudy_android_arm64......"
-    CGO_ENABLED=1 CC=$NDK/aarch64-linux-android$AV-clang CXX=$NDK/aarch64-linux-android$AV-clang GOOS=android GOARCH=arm64     go build --ldflags "-X main.dataDir=/data/data/x.x.jwstudy/ -X main.Port=8080" -tags nogui -o bin/jwstudy_android_arm64 ../../ && ok
-    echo -n -e "|- bin/jwstudy_android_arm........"
-    CGO_ENABLED=1 CC=$NDK/armv7a-linux-androideabi$AV-clang CXX=$NDK/armv7a-linux-androideabi$AV-clang GOOS=android GOARCH=arm go build --ldflags "-X main.dataDir=/data/data/x.x.jwstudy/ -X main.Port=8080" -tags nogui -o bin/jwstudy_android_arm ../../ && ok
-    echo -n -e "|- bin/jwstudy_android_amd64......"
-    CGO_ENABLED=1 CC=$NDK/x86_64-linux-android$AV-clang CXX=$NDK/x86_64-linux-android$AV-clang GOOS=android GOARCH=amd64       go build --ldflags "-X main.dataDir=/data/data/x.x.jwstudy/ -X main.Port=8080" -tags nogui -o bin/jwstudy_android_amd64 ../../ && ok
-    echo -n -e "\_ bin/jwstudy_android_386........"
-    CGO_ENABLED=1 CC=$NDK/i686-linux-android$AV-clang CXX=$NDK/i686-linux-android$AV-clang GOOS=android GOARCH=386             go build --ldflags "-X main.dataDir=/data/data/x.x.jwstudy/ -X main.Port=8080" -tags nogui -o bin/jwstudy_android_386 ../../ && ok
+    goprod \
+        -combo="android/arm;android/386;android/arm64;android/amd64" \
+        -binname="jwstudy-android" \
+        -version="$vcode" \
+        -ldflags="-X main.dataDir=/data/data/x.x.jwstudy/ -X main.Port=8080" \
+        -ndk="$NDK" \
+        -package=false
 fi
 echo "===== Packaging"
 echo "/ Packaging for Ubuntu Touch"
-
 for arch in arm64 arm amd64
 do
     echo -n -e "|- bin/jwstudy_$arch.click............" | head -c 34
@@ -130,22 +122,6 @@ then
     done
     echo "\_ OK"
 fi
-echo "/ Packaging for debian"
-for arch in arm64 arm amd64 386
-do
-    cd "$builddir"
-    cp ../debian debian-deb-$arch -r
-    cd debian-deb-$arch
-    ARCH=$arch checkinstall --install=no \
-        --pkgname="jwstudy" \
-        --pkgversion=1.0.0"$vcode" \
-        --pkgarch="$arch" \
-        --pkgrelease=1 \
-        --pkgsource="git.mrcyjanek.net/mrcyjanek/jwapi" \
-        --pakdir="../bin" \
-        --maintainer="cyjan@mrcyjanek.net" \
-        --provides="jwstudy" \
-        -D \
-        -y
-done
-echo "DONE! Everything is inside $builddir/bin"
+echo "DONE! Everything is inside build/"
+
+~/go/bin/packr2 clean

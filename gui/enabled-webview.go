@@ -1,4 +1,4 @@
-// +build gui-webview
+// +build guiwebview
 
 package gui
 
