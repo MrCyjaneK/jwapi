@@ -39,9 +39,10 @@ echo -n -e "|- bin/jwstudy_ubtouch_arm64......"
 goprod \
     -combo="linux/arm;linux/arm64;linux/amd64" \
     -binname="jwstudy-ubtouch" \
-        -version="$vcode" \
+    -version="$vcode" \
     -ldflags="-X main.dataDir=/home/phablet/.local/share/jwstudy.anon -X main.Port=8080" \
-    -package=false
+    -package=false \
+    -tags="nogui"
 
 if [[ "X$SKIPANDROID" == "X" ]];
 then
@@ -57,6 +58,7 @@ then
         -version="$vcode" \
         -ldflags="-X main.dataDir=/data/data/x.x.jwstudy/ -X main.Port=8080" \
         -ndk="$NDK" \
+        -tags="nogui" \
         -package=false
 fi
 echo "===== Packaging"
