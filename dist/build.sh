@@ -15,6 +15,7 @@ vcode="1.0.1-"$(cat ../VERSION_CODE | head -1)
 echo "Building JW Study - version: $vcode";
 cd ..
 rm -rf build/
+goprodbuilds=$(pwd)"/build/"
 ~/go/bin/packr2 clean
 ~/go/bin/packr2
 goprod \
@@ -54,7 +55,7 @@ then
     NDK=~/Android/Sdk/ndk/$NDKV/toolchains/llvm/prebuilt/linux-x86_64/bin
     goprod \
         -combo="android/arm;android/386;android/arm64;android/amd64" \
-        -binname="jwstudy-android" \
+        -binname="jwstudy" \
         -version="$vcode" \
         -ldflags="-X main.dataDir=/data/data/x.x.jwstudy/ -X main.Port=8080" \
         -ndk="$NDK" \
@@ -63,14 +64,15 @@ then
 fi
 echo "===== Packaging"
 echo "/ Packaging for Ubuntu Touch"
+mkdir -p $goprodbuilds/click
 for arch in arm64 arm amd64
 do
     echo -n -e "|- bin/jwstudy_$arch.click............" | head -c 34
-    cd $builddir/
-    cp ../ubtouch ubtouch-$arch -r
-    cd $builddir/ubtouch-$arch/
+    cd $goprodbuilds
+    cp ../dist/ubtouch ubtouch-$arch -r
+    cd $goprodbuilds/ubtouch-$arch/
     clickable clean
-    cp "$builddir/bin/jwstudy_ubtouch_$arch" $(find . -name jwlib.bin)
+    cp "$goprodbuilds/bin/jwstudy-ubtouch_linux_$arch" $(find . -name jwlib.bin)
     chmod +x $(find . -name jwlib.bin)
     sed -i 's/BUILD_VERSION_CODE/'$vcode'/g' manifest.json.in
     archC=$arch
@@ -79,47 +81,48 @@ do
         archC="armhf"
     fi
     clickable build --arch=$archC
-    cp build/*/app/*.click $builddir/bin/jwstudy_$arch.click
+    cp build/*/app/*.click $goprodbuilds/click/jwstudy_$arch.click
     ok
 done
 echo "\_ DONE"
 if [[ "X$SKIPANDROID" == "X" ]];
 then
     echo "/ Packaging for android"
+    mkdir -p $goprodbuilds/apk/
     for arch in arm64 arm amd64 386 all
     do
         echo -n -e "|- bin/jwstudy.android.$arch.apk.........." | head -c 34
-        cd "$builddir"
-        cp ../android android-target-$arch -r
+        cd "$goprodbuilds"
+        cp ../dist/android android-target-$arch -r
         cd android-target-$arch
-        touch "$builddir/android-target-$arch/app/src/main/resources/lib/x86_64/jwlib.bin"
-        touch "$builddir/android-target-$arch/app/src/main/resources/lib/x86/jwlib.bin"
-        touch "$builddir/android-target-$arch/app/src/main/resources/lib/armeabi-v7a/jwlib.bin"
-        touch "$builddir/android-target-$arch/app/src/main/resources/lib/arm64-v8a/jwlib.bin"
+        touch "$goprodbuilds/android-target-$arch/app/src/main/resources/lib/x86_64/jwlib.bin"
+        touch "$goprodbuilds/android-target-$arch/app/src/main/resources/lib/x86/jwlib.bin"
+        touch "$goprodbuilds/android-target-$arch/app/src/main/resources/lib/armeabi-v7a/jwlib.bin"
+        touch "$goprodbuilds/android-target-$arch/app/src/main/resources/lib/arm64-v8a/jwlib.bin"
         case $arch in
         "amd64")
-            cp "$builddir/bin/jwstudy_android_amd64" "$builddir/android-target-$arch/app/src/main/resources/lib/x86_64/jwlib.bin"
+            cp "$goprodbuilds/bin/jwstudy_android_amd64" "$goprodbuilds/android-target-$arch/app/src/main/resources/lib/x86_64/jwlib.bin"
             ;;
         "386")
-            cp "$builddir/bin/jwstudy_android_386"   "$builddir/android-target-$arch/app/src/main/resources/lib/x86/jwlib.bin"
+            cp "$goprodbuilds/bin/jwstudy_android_386"   "$goprodbuilds/android-target-$arch/app/src/main/resources/lib/x86/jwlib.bin"
             ;;
         "arm")
-            cp "$builddir/bin/jwstudy_android_arm"   "$builddir/android-target-$arch/app/src/main/resources/lib/armeabi-v7a/jwlib.bin"
+            cp "$goprodbuilds/bin/jwstudy_android_arm"   "$goprodbuilds/android-target-$arch/app/src/main/resources/lib/armeabi-v7a/jwlib.bin"
             ;;
         "arm64")
-            cp "$builddir/bin/jwstudy_android_arm64" "$builddir/android-target-$arch/app/src/main/resources/lib/arm64-v8a/jwlib.bin"
+            cp "$goprodbuilds/bin/jwstudy_android_arm64" "$goprodbuilds/android-target-$arch/app/src/main/resources/lib/arm64-v8a/jwlib.bin"
             ;;
         "all")
-            cp "$builddir/bin/jwstudy_android_amd64" "$builddir/android-target-$arch/app/src/main/resources/lib/x86_64/jwlib.bin"
-            cp "$builddir/bin/jwstudy_android_386"   "$builddir/android-target-$arch/app/src/main/resources/lib/x86/jwlib.bin"
-            cp "$builddir/bin/jwstudy_android_arm"   "$builddir/android-target-$arch/app/src/main/resources/lib/armeabi-v7a/jwlib.bin"
-            cp "$builddir/bin/jwstudy_android_arm64" "$builddir/android-target-$arch/app/src/main/resources/lib/arm64-v8a/jwlib.bin"
+            cp "$goprodbuilds/bin/jwstudy_android_amd64" "$goprodbuilds/android-target-$arch/app/src/main/resources/lib/x86_64/jwlib.bin"
+            cp "$goprodbuilds/bin/jwstudy_android_386"   "$goprodbuilds/android-target-$arch/app/src/main/resources/lib/x86/jwlib.bin"
+            cp "$goprodbuilds/bin/jwstudy_android_arm"   "$goprodbuilds/android-target-$arch/app/src/main/resources/lib/armeabi-v7a/jwlib.bin"
+            cp "$goprodbuilds/bin/jwstudy_android_arm64" "$goprodbuilds/android-target-$arch/app/src/main/resources/lib/arm64-v8a/jwlib.bin"
             ;;
         esac
         chmod +x $(find . -name jwlib.bin)
         sed -i 's/BUILD_VERSION_CODE/'$vcode'/g' app/build.gradle
         ./gradlew build
-        cp ./app/build/outputs/apk/debug/app-debug.apk "$builddir/bin/jwstudy.android.$arch.apk"
+        cp ./app/build/outputs/apk/debug/app-debug.apk "$goprodbuilds/apk/jwstudy.android.$arch.apk"
         ok
     done
     echo "\_ OK"
