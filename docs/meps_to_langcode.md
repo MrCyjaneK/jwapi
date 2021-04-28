@@ -1,3 +1,5 @@
+# Converting meps_language_id to langcode
+
 So in ~/LibJWgo/catalog/Publication.json we have ALL the publications.
 
 Let's take this as an example:
@@ -28,7 +30,7 @@ On the other hand we have English (lang code E, meps 0)
 
 We also have this language endpoint, but it doesn't contain meps code.. so worthless for us.
 
-I've mad some progress in utils/getmepslangs, for not it is usable, cd into that directory and run:
+I've mad some progress in `utils/getmepslangs`, for not it is usable, cd into that directory and run:
 
 ```bash
 $ rm -rf /tmp/LibJWgo # If it's not your first try
