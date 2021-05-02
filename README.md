@@ -54,21 +54,26 @@ Well. You can make it better, simply submit a PR.
 
 # Installation
 
+ - `jwstudy-nogui` - Daemon build, doesn't open gui, just serve it over http.
+ - `jwstudy-lorca` - Opens electron-like app - recommended for desktop usage, on mobile have issues with highlighting.
+ - `jwstudy-browser` - Opens gui in your default browser (recommended for mobile devices running Linux, due to fractional scaling issues with `-lorca` build)
+
+Ubuntu Touch and Android builds are packaged versions of `jwstudy-nogui` with platform specific webview.
+Android builds have issues on android lower than 10, please submit a merge request if you know how to properly fix this issue.
+
 You can go directly to [my ci](https://ci.mrcyjanek.net/jobs/build-jwapi) do grab a binary for your system, or use platform-specific way of doing so:
 
-  - debian
-    
-    Install my APT repo to your system. Make sure to run this command as root
-    ```bash
-    # wget 'https://static.mrcyjanek.net/laminarci/apt-repository/cyjan_repo/mrcyjanek-repo-latest.deb' && \
-      apt install ./mrcyjanek-repo-latest.deb && \
-      rm ./mrcyjanek-repo-latest.deb && \
-      apt update
-    ```
-    After that install jwstudy
-    ```bash
-    # apt install jwstudy
-    ```
+Install my APT repo to your system. Make sure to run this command as root
+```bash
+# wget 'https://static.mrcyjanek.net/laminarci/apt-repository/cyjan_repo/mrcyjanek-repo-latest.deb' && \
+    apt install ./mrcyjanek-repo-latest.deb && \
+    rm ./mrcyjanek-repo-latest.deb && \
+    apt update
+```
+After that install jwstudy. Please note that there are 3 versions of JW Study available. 
+```bash
+# apt install jwstudy-browser
+```
 
 # Building.
 
