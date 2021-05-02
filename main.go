@@ -17,12 +17,6 @@ func main() {
 	} else {
 		helpers.SetDataDir(dataDir)
 	}
-	//go func() {
-	//	for {
-	//		helpers.PrintMemUsage()
-	//		time.Sleep(time.Millisecond * 500)
-	//	}
-	//}()
 	helpers.Mkdir(dataDir + "/raw")
 	helpers.DBInit(dataDir)
 	webui.Start()
