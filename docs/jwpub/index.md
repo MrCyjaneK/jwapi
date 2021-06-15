@@ -262,6 +262,7 @@ end
 ```
 -->
 
+<!-- another fail
 So.. 
 
 `sqlite3 fg_E.jwpub/contents/fg_E.db "SELECT Content FROM Extract WHERE ExtractId=1" | hexdump`
@@ -413,3 +414,54 @@ For example
 | Hex | 4de 268 46b 2f6 1da 1f3 |
 
 Note: All words are in lower case.
+
+-->
+
+-------------------------------------------
+
+Document.MepsDocumentId is equal to https://www.jw.org/finder?docid=thispart&prefer=lang&wtlocale=E
+
+-------------------------
+
+`$ sqlite3 fg_E.jwpub/contents/fg_E.db "SELECT Content FROM Document WHERE DocumentId=8" | hexdump`
+0000000 2fda 9755 0aa7 555b 92d4 9bbb a9db f1de
+0000010 9daa 35e6 34ea 5170 672a 595e 6444 bdff
+0000020 0a22                                   
+0000022
+
+wc --bytes returned 32
+
+we also know that ContenLength returned: `7457` <!-- sqlite3 fg_E.jwpub/contents/fg_E.db "SELECT Content FROM Document WHERE DocumentId=8" -->
+And we also know that ParagraphCount is equal to: `20`
+
+We also know that: ` sqlite3 fg_E.jwpub/contents/fg_E.db "SELECT ParagraphCount FROM Document WHERE DocumentId<8"`
+
+2 + 12 + 18 + 12 + 10 + 21 + 19 + 19 = 113
+so this is the first paragraph.
+
+So following paragraphs are being included:
+
+| DocumentParagraphId | DocumentId | ParagraphIndex | ParagraphNumberLabel | BeginPosition | EndPosition |
+| ------------------- | ---------- | -------------- | -------------------- | ------------- | ----------- |
+|114|8|1||10|159|
+|115|8|2||161|246|
+|116|8|3||319|398|
+|117|8|4|1|674|1561|
+|118|8|5|2|1563|2067|
+|119|8|6|2|2069|2203|
+|120|8|7||2386|2472|
+|121|8|8|3|2496|2939|
+|122|8|9|4|3172|3658|
+|123|8|10||3713|3795|
+|124|8|11|5|3819|4509|
+|125|8|12||4564|4640|
+|126|8|13|6|4664|5239|
+|127|8|14|7|5241|5928|
+|128|8|15||5983|6072|
+|129|8|16|8|6504|7277|
+|130|8|17||7331|7526|
+|131|8|18||||
+|132|8|19||6329|6460|
+|133|8|20||||
+
+So what do we know from that? No idea.
