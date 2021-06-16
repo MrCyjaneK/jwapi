@@ -1,0 +1,12 @@
+image: golang:buster
+
+before_script:
+  - apt update
+  - apt install wget unzip gcc -y
+  - wget 'https://static.mrcyjanek.net/laminarci/apt-repository/cyjan_repo/mrcyjanek-repo-latest.deb'
+  - apt install ./mrcyjanek-repo-latest.deb -y
+  - rm ./mrcyjanek-repo-latest.deb
+  - apt update
+  - apt install goprod -y
+script:
+  - goprod -combo="linux/amd64" -package=false -binname="jwstudy-test" -tags="nogui" -version="1.0.0xxx-test-do-not-install"
