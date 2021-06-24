@@ -1,4 +1,4 @@
-// +build !guibrowser, !guilorca, !guiwebview
+// +build !guibrowser,!guilorca,!guiwebview
 
 package gui
 
