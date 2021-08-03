@@ -1,4 +1,5 @@
 function saveHighlight() {
+  console.log("highlights:"+window.location.pathname)
   dbSet("highlights:"+window.location.pathname, hltr.serializeHighlights())
 }
 

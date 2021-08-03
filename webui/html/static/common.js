@@ -55,7 +55,7 @@ function dbGet(key) {
     return localStorage[key]
   }
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "/api/db/get/"+key, false);
+  xhr.open("GET", "/api/db/get/"+encodeURIComponent(key), false);
   xhr.onerror = function (e) {
     console.error(xhr.statusText);
   };
@@ -67,7 +67,7 @@ function dbGet(key) {
 function dbSet(key, value) {
   localStorage[key] = value
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "/api/db/set/"+key+"?"+encodeURIComponent(value), true);
+  xhr.open("GET", "/api/db/set/"+encodeURIComponent(key)+"?"+encodeURIComponent(value), true);
   xhr.onerror = function (e) {
     console.error(xhr.statusText);
   };
