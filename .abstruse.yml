@@ -1,19 +1,19 @@
 image: mrcyjanek/goprod:latest
 
 matrix:
-  - env: TAGS='guibrowser' BINNAME='jwstudy-browser'
-  - env: TAGS='guilorca' BINNAME='jwstudy'
+  - env: TAGS=guibrowser BINNAME=jwstudy-browser
+  - env: TAGS=guilorca BINNAME=jwstudy
 
 before_script:
   - git config user.email cyjan@mrcyjanek.net
   - git config user.name "Czarek Nakamoto"
   - mkdir -p /usr/share/icons/hicolor/scalable/apps/
 script:
-  - goprod -combo="linux/amd64" -package=true -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
-  - goprod -combo="linux/386" -package=true -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
-  - goprod -combo="linux/arm" -package=true -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
-  - goprod -combo="linux/arm64" -package=true -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
-  - goprod -combo="windows/amd64" -package=true -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
-  - goprod -combo="windows/386" -package=true -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
+  - goprod -combo="linux/amd64" -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
+  - goprod -combo="linux/386" -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
+  - goprod -combo="linux/arm" -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
+  - goprod -combo="linux/arm64" -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
+  - goprod -combo="windows/amd64" -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
+  - goprod -combo="windows/386" -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
   - cp build/deb/*.deb /apt/
   - cp build/bin/* /archive

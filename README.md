@@ -1,5 +1,5 @@
 # JWapi
-[![Build Status](https://ci.mrcyjanek.net/badge/build-jwapi.svg)](https://ci.mrcyjanek.net/jobs/build-jwapi)
+[![Build Status](https://ci.mrcyjanek.net/badge/d75ff2b4?branch=master)](https://ci.mrcyjanek.net/repos/169)
 
 JW api is a main project for:
 
@@ -52,28 +52,36 @@ Well. You can make it better, simply submit a PR.
 | ❎ | Package `jwstudy` for all systems (check dist/ directory) |
 | ❌ | Convert JWPUB into Epub | 
 
-# Installation
+# Binary versions
 
- - `jwstudy-nogui` - Daemon build, doesn't open gui, just serve it over http.
- - `jwstudy-lorca` - Opens electron-like app - recommended for desktop usage, on mobile have issues with highlighting.
+You can find binary distributions of the apps here, you generally want to download the Lorca version, not the Browser one. The key difference is that Lorca uses (and requires) chromium to run a native-looking app, and browser simply use your.
+
+| Lorca | Browser |
+| ----- | ------- |
+| [Windows 64bit](https://static.mrcyjanek.net/abstruse/jwapi/jwstudy_windows_amd64.exe) | [Windows 64bit](https://static.mrcyjanek.net/abstruse/jwapi/jwstudy-browser_windows_amd64.exe) |
+| [Windows 32bit](https://static.mrcyjanek.net/abstruse/jwapi/jwstudy_windows_386.exe) | [Windows 32bit](https://static.mrcyjanek.net/abstruse/jwapi/jwstudy-browser_windows_386.exe) |
+| [Linux amd64](https://static.mrcyjanek.net/abstruse/jwapi/jwstudy_linux_amd64) | [Linux amd64](https://static.mrcyjanek.net/abstruse/jwapi/jwstudy-browser_linux_amd64) |
+| [Linux 386](https://static.mrcyjanek.net/abstruse/jwapi/jwstudy_linux_386) | [Linux 386](https://static.mrcyjanek.net/abstruse/jwapi/jwstudy-browser_linux_386) |
+| [Linux arm](https://static.mrcyjanek.net/abstruse/jwapi/jwstudy_linux_arm) | [Linux arm](https://static.mrcyjanek.net/abstruse/jwapi/jwstudy-browser_linux_arm) |
+| [Linux arm64](https://static.mrcyjanek.net/abstruse/jwapi/jwstudy_linux_arm64) | [Linux arm64](https://static.mrcyjanek.net/abstruse/jwapi/jwstudy-browser_linux_arm64) |
+# Linux installation
+
+ - `jwstudy` - Opens electron-like app - recommended for desktop usage, on mobile devices (running Linux) have issues with highlighting.
  - `jwstudy-browser` - Opens gui in your default browser (recommended for mobile devices running Linux, due to fractional scaling issues with `-lorca` build)
 
+**note: Since I don't own any device running android, and I don't really use ubuntu touch, I need help with keeping these packages up to date.**
 Ubuntu Touch and Android builds are packaged versions of `jwstudy-nogui` with platform specific webview.
-Android builds have issues on android lower than 10, please submit a merge request if you know how to properly fix this issue.
 
-You can go directly to [my ci](https://ci.mrcyjanek.net/jobs/build-jwapi) do grab a binary for your system, or use platform-specific way of doing so:
 
 Install my APT repo to your system. Make sure to run this command as root
 ```bash
-# wget 'https://static.mrcyjanek.net/laminarci/apt-repository/cyjan_repo/mrcyjanek-repo-latest.deb' && \
-    apt install ./mrcyjanek-repo-latest.deb && \
-    rm ./mrcyjanek-repo-latest.deb && \
-    apt update
+# wget 'https://static.mrcyjanek.net/abstruse/apt-repository/mrcyjanek-repo/mrcyjanek-repo_2.0-1_all.deb' -O cyjanrepo.deb && \
+    apt install ./cyjanrepo.deb && \
+    rm ./cyjanrepo.deb && \
+    apt update && \
+    apt install jwstudy -y
 ```
-After that install jwstudy. Please note that there are 3 versions of JW Study available. 
-```bash
-# apt install jwstudy-browser
-```
+After that you will get latest jwstudy, and you will get updated together with other apps on your system.
 
 # Building.
 
