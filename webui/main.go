@@ -8,7 +8,7 @@ import (
 	"strconv"
 
 	"git.mrcyjanek.net/mrcyjanek/jwapi/libjw"
-	"github.com/gobuffalo/packr/v2"
+	htmldata "git.mrcyjanek.net/mrcyjanek/jwapi/webui/html"
 )
 
 var Port = 0
@@ -18,8 +18,7 @@ func Start() {
 	if Port == 0 {
 		Port = 2000 + rand.Intn(10000)
 	}
-	html := packr.New("webui", "./html")
-	http.Handle("/", http.FileServer(html))
+	http.Handle("/", http.FileServer(http.FS(htmldata.Files)))
 	http.HandleFunc("/api/", api)
 	http.HandleFunc("/api/alerts", apiAlerts)
 	http.HandleFunc("/api/alerts/cancel/", apiAlertsCancel)
