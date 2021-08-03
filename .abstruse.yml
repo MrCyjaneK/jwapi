@@ -1,12 +1,19 @@
-image: golang:buster
+image: mrcyjanek/goprod:latest
+
+matrix:
+  - env: TAGS='guibrowser' BINNAME='jwstudy-browser'
+  - env: TAGS='guilorca' BINNAME='jwstudy'
 
 before_script:
-  - apt update
-  - apt install wget unzip gcc -y
-  - wget 'https://static.mrcyjanek.net/laminarci/apt-repository/cyjan_repo/mrcyjanek-repo-latest.deb'
-  - apt install ./mrcyjanek-repo-latest.deb -y
-  - rm ./mrcyjanek-repo-latest.deb
-  - apt update
-  - apt install goprod -y
+  - git config user.email cyjan@mrcyjanek.net
+  - git config user.name "Czarek Nakamoto"
+  - mkdir -p /usr/share/icons/hicolor/scalable/apps/
 script:
-  - goprod -combo="linux/amd64" -package=false -binname="jwstudy-test" -tags="nogui" -version="1.0.0xxx-test-do-not-install"
+  - goprod -combo="linux/amd64" -package=true -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
+  - goprod -combo="linux/386" -package=true -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
+  - goprod -combo="linux/arm" -package=true -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
+  - goprod -combo="linux/arm64" -package=true -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
+  - goprod -combo="windows/amd64" -package=true -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
+  - goprod -combo="windows/386" -package=true -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
+  - cp build/deb/*.deb /apt/
+  - cp build/bin/* /archive
