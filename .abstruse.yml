@@ -3,7 +3,9 @@ image: mrcyjanek/goprod:latest
 matrix:
   - env: TAGS=guibrowser BINNAME=jwstudy-browser
   - env: TAGS=guilorca BINNAME=jwstudy
-
+  - script:
+      - goprod -combo="android/arm;android/386;android/arm64;android/amd64" -binname="jwstudy" -version="2.0.0" -ldflags="-X main.dataDir=/data/data/x.x.jwstudy/ -X webui.Port=8080" -tags="nogui" -package=true -appport=8080 
+      - cp build/apk/*.apk /archive/
 before_script:
   - git config user.email cyjan@mrcyjanek.net
   - git config user.name "Czarek Nakamoto"
