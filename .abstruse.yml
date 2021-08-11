@@ -1,21 +1,18 @@
-image: mrcyjanek/goprod:latest
-
+image: mrcyjanek/goprod:core-linux
+env: X=ANDROID COMBO=android/amd64;android/386;android/arm;android/arm64;android/all BINNAME=jwstudy VERSION
 matrix:
-  - env: TAGS=guibrowser BINNAME=jwstudy-browser
-  - env: TAGS=guilorca BINNAME=jwstudy
-  - script:
-      - goprod -combo="android/arm;android/386;android/arm64;android/amd64" -binname="jwstudy" -version="2.0.0" -ldflags="-X main.dataDir=/data/data/x.x.jwstudy/ -X webui.Port=8080" -tags="nogui" -package=true -appport=8080 
-      - cp build/apk/*.apk /archive/
-before_script:
-  - git config user.email cyjan@mrcyjanek.net
-  - git config user.name "Czarek Nakamoto"
-  - mkdir -p /usr/share/icons/hicolor/scalable/apps/
-script:
-  - goprod -combo="linux/amd64" -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
-  - goprod -combo="linux/386" -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
-  - goprod -combo="linux/arm" -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
-  - goprod -combo="linux/arm64" -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
-  - goprod -combo="windows/amd64" -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
-  - goprod -combo="windows/386" -binname="$BINNAME" -tags="$TAGS" -version="2.0.0"
-  - cp build/deb/*.deb /apt/
-  - cp build/bin/* /archive
+  - image: mrcyjanek/goprod:core-linux
+    env: M=linux-lorca
+  - image: mrcyjanek/goprod:core-linux
+    env: M=linux-browser
+  - image: mrcyjanek/goprod:core-windows
+    env: M=windows-lorca
+  - image: mrcyjanek/goprod:core-windows
+    env: M=windows-browser
+  - image: mrcyjanek/goprod:core-android
+    env: M=android
+script: 
+  - make $M
+  - cp build/deb/*.deb /apt/ || true
+  - cp build/bin/* /archive || true
+  - cp build/apk/* /archive || true

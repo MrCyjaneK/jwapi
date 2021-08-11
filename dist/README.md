@@ -1,5 +1,7 @@
 # Distribution packages
 
+> **IMPORTANT INFO:** Because I had some other projects going on, and the packaging process was quite complicated - starting from now only official supported way of building jwapi/JW Study is by using [goprod](https://github.com/MrCyjaneK/goprod)
+
 JW Study aim to be usable on every platform, no matter if it is your 512mb/8gb android 4.1 device, modern android 11 device, some Ubuntu Touch running via halium, postmarketOS (without usable calls), or your desktop device running Debian, or that crap m$ made.
 
 On every device app should look exactly the same. If you want to port it to new OS, you need to create a simple wrapper, that will:
