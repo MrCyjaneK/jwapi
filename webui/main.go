@@ -3,6 +3,7 @@ package webui
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -11,12 +12,15 @@ import (
 	htmldata "git.mrcyjanek.net/mrcyjanek/jwapi/webui/html"
 )
 
+var SPort = "0"
 var Port = 0
 
 // Start the webui
 func Start() {
-	if Port == 0 {
+	if SPort == "0" {
 		Port = 2000 + rand.Intn(10000)
+	} else {
+		Port, _ = strconv.Atoi(SPort)
 	}
 	http.Handle("/", http.FileServer(http.FS(htmldata.Files)))
 	http.HandleFunc("/api/", api)
@@ -33,7 +37,12 @@ func Start() {
 	http.HandleFunc("/api/ping", apiPing)
 	http.HandleFunc("/api/updateCatalog", apiUpdateCatalog)
 	http.HandleFunc("/api/languages", apiLanguages)
-	go http.ListenAndServe(":"+strconv.Itoa(Port), nil)
+	go func() {
+		err := http.ListenAndServe(":"+strconv.Itoa(Port), nil)
+		if err != nil {
+			log.Fatal("[webui][Start]", err)
+		}
+	}()
 	fmt.Println("[webui][Start] Listening on 127.0.0.1:" + strconv.Itoa(Port))
 }
 

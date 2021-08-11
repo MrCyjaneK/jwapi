@@ -1,5 +1,4 @@
 image: mrcyjanek/goprod:core-linux
-env: X=ANDROID COMBO=android/amd64;android/386;android/arm;android/arm64;android/all BINNAME=jwstudy VERSION
 matrix:
   - image: mrcyjanek/goprod:core-linux
     env: M=linux-lorca

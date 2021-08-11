@@ -18,8 +18,8 @@ func main() {
 		helpers.SetDataDir(dataDir)
 	}
 	helpers.Mkdir(dataDir + "/raw")
-	helpers.DBInit(dataDir)
 	webui.Start()
+	helpers.DBInit(dataDir)
 	go libjw.GetCatalog(dataDir+"/raw/catalog.db", true)
 	gui.Start()
 }

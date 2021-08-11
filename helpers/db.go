@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/dgraph-io/badger"
+	"github.com/dgraph-io/badger/v3"
 )
 
 var db *badger.DB
