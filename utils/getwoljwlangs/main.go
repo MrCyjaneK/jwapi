@@ -26,6 +26,6 @@ func main() {
 		code := strings.Split(strings.Split(l, `data-rsconf="`)[1], `"`)[0]
 		title := strings.Split(strings.Split(l, `data-title="`)[1], `"`)[0]
 
-		log.Println("code:", code)
+		log.Println("code:", code, title)
 	}
 }
