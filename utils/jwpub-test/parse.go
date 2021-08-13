@@ -10,6 +10,6 @@ func main() {
 	helpers.SetDataDir(dataDir)
 	helpers.Mkdir(dataDir + "/raw")
 	helpers.DBInit(dataDir)
-	libjw.GetPublication("fg", "E", "JWPUB", "")
+	libjw.GetPublication("w", "E", "JWPUB", "202110")
 	// libjw.JWPUBtoMarkdown("fg_E.jwpub.orig")
 }

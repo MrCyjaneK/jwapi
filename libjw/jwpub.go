@@ -5,8 +5,8 @@ package libjw
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
-	"time"
 
 	_ "github.com/mattn/go-sqlite3" // sqlite driver
 
@@ -41,7 +41,7 @@ func JWPUBtoMarkdown(jwpub string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	db, err := sql.Open("sqlite3", path+"/c/fg_E.db")
+	db, err := sql.Open("sqlite3", path+"/c/w_E_202110.db")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -58,11 +58,11 @@ func JWPUBtoMarkdown(jwpub string) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		r := db.QueryRow("SELECT TextUnitIndices, PositionalListIndex, PositionalList FROM SearchIndexDocument WHERE WordId=?", wid)
+		r := db.QueryRow("SELECT TextUnitIndices, PositionalList, PositionalListIndex FROM SearchIndexDocument WHERE WordId=?", wid)
 		var tui []byte
-		var pli []byte
 		var pl []byte
-		err = r.Scan(&tui, &pli, &pl)
+		var pli []byte
+		err = r.Scan(&tui, &pl, &pli)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -85,8 +85,7 @@ func JWPUBtoMarkdown(jwpub string) {
 		var finded = false
 		for i := range sIndexes {
 			//log.Println("for i:= range sIndexes")
-			if sIndexes[i].TextUnitIndices[0] == 128 {
-				//log.Println("if sIndexes[i].TextUnitIndices[0] == 128 {")
+			if len(sIndexes[i].TextUnitIndices) > 0 && sIndexes[i].TextUnitIndices[0] == 128 {
 				//log.Println("byteStartsWith(sIndexes[i].PositionalList, curDocIndex): ", byteStartsWith(sIndexes[i].PositionalList, curDocIndex))
 				if byteStartsWith(sIndexes[i].PositionalList, curDocIndex) {
 					var rem = sIndexes[i].PositionalListIndex[0]
@@ -98,8 +97,6 @@ func JWPUBtoMarkdown(jwpub string) {
 						//	fullText[docID]!.append(wd + " ")
 						//}
 						fullText[docID] += " " + wd
-						log.Println("fullText[docID]:", fullText[docID])
-						time.Sleep(time.Second)
 						sIndexes[i].PositionalList = sIndexes[i].PositionalList[len(curDocIndex):]
 						rem = rem - 1
 						sIndexes[i].PositionalListIndex[0] = rem
@@ -143,28 +140,43 @@ func JWPUBtoMarkdown(jwpub string) {
 				}
 			}
 		}
+
+		if fullText[docID] != "" {
+			fmt.Println("fullText[docID:", docID, "]:", fullText[docID])
+		}
 		if !finded {
+			log.Println("finded!")
 			var toRem []int
 			for i := range sIndexes {
 				//var docI = sIndexes[i].TextUnitIndices.prefix(3)
 				//sIndexes[i].TextUnitIndices.removeFirst(3)
-				if sIndexes[i].TextUnitIndices[0] == 128 {
-					if len(sIndexes[i].TextUnitIndices) != 1 {
-						sIndexes[i].TextUnitIndices[1]--
-					}
-				} else {
-					sIndexes[i].TextUnitIndices[0]--
+				var docI byte = 0
+				if len(sIndexes[i].TextUnitIndices) > 0 {
+					docI = sIndexes[i].TextUnitIndices[0]
 				}
 				if len(sIndexes[i].TextUnitIndices) == 0 {
 					log.Println("toRem", i)
 					toRem = append(toRem, i)
-				}
+				} else {
+					sIndexes[i].TextUnitIndices = sIndexes[i].TextUnitIndices[1:]
+					if docI == 128 {
+						log.Println("finded! 1")
+						if len(sIndexes[i].TextUnitIndices) != 0 {
+							sIndexes[i].TextUnitIndices = insertbyte(sIndexes[i].TextUnitIndices, docI-1, 0)
+						}
+					} else {
+						docI--
+						sIndexes[i].TextUnitIndices = insertbyte(sIndexes[i].TextUnitIndices, docI, 0)
+					}
 
-				if len(sIndexes[i].PositionalListIndex) > 0 && sIndexes[i].PositionalListIndex[0] == 128 {
-					sIndexes[i].PositionalListIndex = sIndexes[i].PositionalListIndex[1:]
+					if len(sIndexes[i].PositionalListIndex) > 0 && sIndexes[i].PositionalListIndex[0] == 128 {
+						sIndexes[i].PositionalListIndex = sIndexes[i].PositionalListIndex[1:]
+						log.Println("finded! 3")
+					}
 				}
 			}
-			for i := len(toRem); i > 0; i-- {
+			for i := len(toRem) - 1; i > 0; i-- {
+				log.Println("Removing...")
 				log.Println("toRem2", sIndexes[toRem[i]])
 				sIndexes = append(sIndexes[:toRem[i]], sIndexes[toRem[i]+1:]...)
 			}
@@ -173,6 +185,9 @@ func JWPUBtoMarkdown(jwpub string) {
 		}
 		if len(sIndexes) == 0 {
 			loop = false
+		}
+		if docID > 10000 {
+			log.Fatal("docID > 10000, this should not happen.")
 		}
 	}
 	//	for (id, text) in fullText where text != "" {
@@ -187,11 +202,15 @@ func JWPUBtoMarkdown(jwpub string) {
 
 }
 
+func insertbyte(a []byte, c byte, i int) []byte {
+	return append(a[:i], append([]byte{c}, a[i:]...)...)
+}
+
 func byteStartsWith(bs []byte, with []byte) bool {
-	if len(bs) != len(with) {
+	if len(bs) < len(with) {
 		return false
 	}
-	for i := range bs {
+	for i := range with {
 		if bs[i] != with[i] {
 			return false
 		}
