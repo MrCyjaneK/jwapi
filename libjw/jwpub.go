@@ -101,6 +101,7 @@ func JWPUBtoMarkdown(jwpub string) {
 						rem = rem - 1
 						sIndexes[i].PositionalListIndex[0] = rem
 						curDocIndexArray := curDocIndex
+						fmt.Println(wd)
 						var repo = false
 						for j := range curDocIndexArray {
 							if j == 0 {
@@ -145,8 +146,7 @@ func JWPUBtoMarkdown(jwpub string) {
 			fmt.Println("fullText[docID:", docID, "]:", fullText[docID])
 		}
 		if !finded {
-			log.Println("finded!")
-			var toRem []int
+			var toRem []int = []int{}
 			for i := range sIndexes {
 				//var docI = sIndexes[i].TextUnitIndices.prefix(3)
 				//sIndexes[i].TextUnitIndices.removeFirst(3)
@@ -155,12 +155,11 @@ func JWPUBtoMarkdown(jwpub string) {
 					docI = sIndexes[i].TextUnitIndices[0]
 				}
 				if len(sIndexes[i].TextUnitIndices) == 0 {
-					log.Println("toRem", i)
+					log.Println("toRem", i, sIndexes[i].Word)
 					toRem = append(toRem, i)
 				} else {
 					sIndexes[i].TextUnitIndices = sIndexes[i].TextUnitIndices[1:]
 					if docI == 128 {
-						log.Println("finded! 1")
 						if len(sIndexes[i].TextUnitIndices) != 0 {
 							sIndexes[i].TextUnitIndices = insertbyte(sIndexes[i].TextUnitIndices, docI-1, 0)
 						}
@@ -168,16 +167,13 @@ func JWPUBtoMarkdown(jwpub string) {
 						docI--
 						sIndexes[i].TextUnitIndices = insertbyte(sIndexes[i].TextUnitIndices, docI, 0)
 					}
-
 					if len(sIndexes[i].PositionalListIndex) > 0 && sIndexes[i].PositionalListIndex[0] == 128 {
 						sIndexes[i].PositionalListIndex = sIndexes[i].PositionalListIndex[1:]
-						log.Println("finded! 3")
 					}
 				}
 			}
-			for i := len(toRem) - 1; i > 0; i-- {
-				log.Println("Removing...")
-				log.Println("toRem2", sIndexes[toRem[i]])
+			for i := len(toRem) - 1; i >= 0; i-- {
+				log.Println(i, docID, "toRem2", sIndexes[toRem[i]].Word)
 				sIndexes = append(sIndexes[:toRem[i]], sIndexes[toRem[i]+1:]...)
 			}
 			docID++
@@ -185,6 +181,8 @@ func JWPUBtoMarkdown(jwpub string) {
 		}
 		if len(sIndexes) == 0 {
 			loop = false
+		} else {
+			log.Println("len(sIndexes):", len(sIndexes))
 		}
 		if docID > 10000 {
 			log.Fatal("docID > 10000, this should not happen.")
