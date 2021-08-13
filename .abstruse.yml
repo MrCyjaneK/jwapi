@@ -11,7 +11,7 @@ matrix:
   - image: mrcyjanek/goprod:core-android
     env: M=android
 script: 
-  - make $M
+  - if [[ "$M" == "android" && "$ABSTRUSE_BRANCH" != "master" ]]; then true; else make $M; fi
   - cp build/deb/*.deb /apt/ || true
   - cp build/bin/* /archive || true
   - cp build/apk/* /archive || true
