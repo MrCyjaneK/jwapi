@@ -75,30 +75,33 @@ func JWPUBtoMarkdown(jwpub string) {
 		})
 	}
 
+	sIndexes := wordsmap
 	var loop = true
 	var docID = 0
 	var curDocIndex = []byte{128}
-	var fullText = make(map[int]string, 255)
+	var fullText = make(map[int]string)
 
-	sIndexes := wordsmap
 	for loop {
-
 		var finded = false
 		for i := range sIndexes {
-			if sIndexes[i].WordID == 123 {
-				log.Println(sIndexes[i].Word, sIndexes[i].TextUnitIndices, byteStartsWith(sIndexes[i].TextUnitIndices, []byte{128}), sIndexes[i].PositionalList, byteStartsWith(sIndexes[i].PositionalList, curDocIndex), curDocIndex)
-			}
 			if byteStartsWith(sIndexes[i].TextUnitIndices, []byte{128}) {
 				if byteStartsWith(sIndexes[i].PositionalList, curDocIndex) {
 					var rem = sIndexes[i].PositionalListIndex[0]
 					if rem > 128 {
 						finded = true
-						wd := sIndexes[i].Word
+						var wd = sIndexes[i].Word
+						//if wd != String(fullText[docID]?.split(separator: " ").last ?? "").unaccent() {
+						//	print(curDocIndex, wd)
+						//	fullText[docID]!.append(wd + " ")
+						//}
 						fullText[docID] += " " + wd
 						sIndexes[i].PositionalList = sIndexes[i].PositionalList[len(curDocIndex):]
+						//sIndexes[i].PositionalList = sIndexes[i].PositionalList.trimmingCharacters(in: .whitespacesAndNewlines)
 						rem = rem - 1
-						sIndexes[i].PositionalListIndex[0] = rem
-						curDocIndexArray := curDocIndex
+						sIndexes[i].PositionalListIndex = sIndexes[i].PositionalListIndex[1:]
+						sIndexes[i].PositionalListIndex = insertbyte(sIndexes[i].PositionalListIndex, rem, 0)
+						//sIndexes[i].PositionalListIndex = rem + sIndexes[i].PositionalListIndex
+						var curDocIndexArray = curDocIndex
 						var repo = false
 						for j := range curDocIndexArray {
 							if j == 0 {
@@ -132,67 +135,57 @@ func JWPUBtoMarkdown(jwpub string) {
 							}
 						}
 						break
-					} else {
-						sIndexes[i].PositionalListIndex = sIndexes[i].PositionalListIndex[1:]
 					}
 				}
 			}
 		}
-
-		if fullText[docID] != "" {
-			fmt.Println("fullText[docID:", docID, "]:", fullText[docID])
-		}
 		if !finded {
-			var toRem []int = []int{}
+			var toRem []int
 			for i := range sIndexes {
-				//var docI = sIndexes[i].TextUnitIndices.prefix(3)
-				//sIndexes[i].TextUnitIndices.removeFirst(3)
-				var docI byte = 0
-				if len(sIndexes[i].TextUnitIndices) > 0 {
-					docI = sIndexes[i].TextUnitIndices[0]
+				var docI = sIndexes[i].TextUnitIndices[0]
+				sIndexes[i].TextUnitIndices = sIndexes[i].TextUnitIndices[1:]
+				if docI == 128 {
+					//sIndexes[i].TextUnitIndices = sIndexes[i].TextUnitIndices.trimmingCharacters(in: .whitespacesAndNewlines)
+					if len(sIndexes[i].TextUnitIndices) != 0 {
+						docI = sIndexes[i].TextUnitIndices[0]
+						sIndexes[i].TextUnitIndices = sIndexes[i].TextUnitIndices[1:]
+						docI = docI - 1
+						sIndexes[i].TextUnitIndices = insertbyte(sIndexes[i].TextUnitIndices, docI, 0)
+					}
+				} else {
+					docI = docI - 1
+					sIndexes[i].TextUnitIndices = insertbyte(sIndexes[i].TextUnitIndices, docI, 0)
 				}
 				if len(sIndexes[i].TextUnitIndices) == 0 {
 					toRem = append(toRem, i)
-				} else {
-					sIndexes[i].TextUnitIndices = sIndexes[i].TextUnitIndices[1:]
-					if docI == 128 {
-						if len(sIndexes[i].TextUnitIndices) != 0 {
-							sIndexes[i].TextUnitIndices = insertbyte(sIndexes[i].TextUnitIndices, docI-1, 0)
-						}
-					} else {
-						docI--
-						sIndexes[i].TextUnitIndices = insertbyte(sIndexes[i].TextUnitIndices, docI, 0)
-					}
-					if len(sIndexes[i].PositionalListIndex) > 0 && sIndexes[i].PositionalListIndex[0] == 128 {
-						sIndexes[i].PositionalListIndex = sIndexes[i].PositionalListIndex[1:]
-					}
+				}
+				var rem = sIndexes[i].PositionalListIndex[0]
+				if rem == 128 {
+					sIndexes[i].PositionalListIndex = sIndexes[i].PositionalListIndex[1:]
+					//sIndexes[i].PositionalListIndex = sIndexes[i].PositionalListIndex.trimmingCharacters(in: .whitespacesAndNewlines)
 				}
 			}
 			for i := len(toRem) - 1; i >= 0; i-- {
-				log.Println(i, docID, "toRem2", sIndexes[toRem[i]].Word)
 				sIndexes = append(sIndexes[:toRem[i]], sIndexes[toRem[i]+1:]...)
 			}
-			docID++
+			fmt.Println(fullText[docID])
+			docID += 1
 			curDocIndex = []byte{128}
 		}
 		if len(sIndexes) == 0 {
 			loop = false
-		} else {
-			log.Println("len(sIndexes):", len(sIndexes))
-		}
-		if docID > 10000 {
-			log.Fatal("docID > 10000, this should not happen.")
 		}
 	}
-	//	for (id, text) in fullText where text != "" {
-	//		let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("w_I_202110/contents/\(id).txt")
-	//		do {
-	//			print(dir)
-	//			try text.write(to: dir, atomically: true, encoding: String.Encoding.utf8)
-	//		} catch {
-	//			print("Error")
-	//		}
+	//print(fullText)
+	//for (id, text) in fullText where text != "" {
+	//	let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("w_I_202110/contents/\(id).txt")
+	//	do {
+	//		print(dir)
+	//		try text.write(to: dir, atomically: true, encoding: String.Encoding.utf8)
+	//	} catch {
+	//		print("Error")
 	//	}
+	//}
 
 }
 
