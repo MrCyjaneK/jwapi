@@ -78,30 +78,27 @@ func JWPUBtoMarkdown(jwpub string) {
 	var loop = true
 	var docID = 0
 	var curDocIndex = []byte{128}
-	var fullText = make(map[int]string)
+	var fullText = make(map[int]string, 255)
 
 	sIndexes := wordsmap
 	for loop {
+
 		var finded = false
 		for i := range sIndexes {
-			//log.Println("for i:= range sIndexes")
-			if len(sIndexes[i].TextUnitIndices) > 0 && sIndexes[i].TextUnitIndices[0] == 128 {
-				//log.Println("byteStartsWith(sIndexes[i].PositionalList, curDocIndex): ", byteStartsWith(sIndexes[i].PositionalList, curDocIndex))
+			if sIndexes[i].WordID == 123 {
+				log.Println(sIndexes[i].Word, sIndexes[i].TextUnitIndices, byteStartsWith(sIndexes[i].TextUnitIndices, []byte{128}), sIndexes[i].PositionalList, byteStartsWith(sIndexes[i].PositionalList, curDocIndex), curDocIndex)
+			}
+			if byteStartsWith(sIndexes[i].TextUnitIndices, []byte{128}) {
 				if byteStartsWith(sIndexes[i].PositionalList, curDocIndex) {
 					var rem = sIndexes[i].PositionalListIndex[0]
 					if rem > 128 {
 						finded = true
 						wd := sIndexes[i].Word
-						//if wd != String(fullText[docID]?.split(separator: " ").last ?? "").unaccent() {
-						//	print(curDocIndex, wd)
-						//	fullText[docID]!.append(wd + " ")
-						//}
 						fullText[docID] += " " + wd
 						sIndexes[i].PositionalList = sIndexes[i].PositionalList[len(curDocIndex):]
 						rem = rem - 1
 						sIndexes[i].PositionalListIndex[0] = rem
 						curDocIndexArray := curDocIndex
-						fmt.Println(wd)
 						var repo = false
 						for j := range curDocIndexArray {
 							if j == 0 {
@@ -155,7 +152,6 @@ func JWPUBtoMarkdown(jwpub string) {
 					docI = sIndexes[i].TextUnitIndices[0]
 				}
 				if len(sIndexes[i].TextUnitIndices) == 0 {
-					log.Println("toRem", i, sIndexes[i].Word)
 					toRem = append(toRem, i)
 				} else {
 					sIndexes[i].TextUnitIndices = sIndexes[i].TextUnitIndices[1:]
