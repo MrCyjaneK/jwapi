@@ -724,10 +724,16 @@ func GetPublication(publication string, language string, format string, issue st
 		}
 		f.Write(body)
 		f.Sync()
-		fmt.Println("[libjw][GetPublication] Extracting...", pub.Title)
-		err = helpers.Unzip(f.Name(), extractpath)
-		if err != nil {
-			return structs.PublicationV2{}, errors.New("[libjw][GetPublication] " + err.Error() + " (zipslip of something? Maybe corrupted download, failed to uzip)")
+		defer f.Close()
+		if format == "EPUB" {
+			fmt.Println("[libjw][GetPublication] Extracting...", pub.Title)
+			err = helpers.Unzip(f.Name(), extractpath)
+			if err != nil {
+				return structs.PublicationV2{}, errors.New("[libjw][GetPublication] " + err.Error() + " (zipslip of something? Maybe corrupted download, failed to uzip)")
+			}
+		} else if format == "JWPUB" {
+			fmt.Println("[libjw][GetPublication] Parsing publication...[JWPUB]", pub.Title)
+			JWPUBtoMarkdown(f.Name())
 		}
 		struc = structs.PublicationV2{
 			Title:  pub.Title,
