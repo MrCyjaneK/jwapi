@@ -55,7 +55,7 @@ func apiPublicationIndex(w http.ResponseWriter, req *http.Request) {
 	var listOfContent []structs.PublicationChapter
 	for i := range content.Manifest.Items {
 		elm := content.Manifest.Items[i]
-		if elm.MediaType == "application/xhtml+xml" {
+		if elm.MediaType == "application/xhtml+xml" && !isEPUBBoilerplate(elm.ID, elm.Properties, elm.Href) {
 			listOfContent = append(listOfContent, structs.PublicationChapter{
 				Title: elm.ID,
 				URL:   "/api/publications/" + publication + "/" + elm.Href,

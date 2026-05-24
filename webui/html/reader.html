@@ -67,7 +67,7 @@
     // Update the iframe's link
     iframe.onload = (() => {
         //console.log(this)
-        link = this.iframe.contentWindow.location.href
+        link = iframe.contentWindow.location.href
         hash = '#/api/'+link.split('/api/')[1]
         history.pushState(null, null, hash);
     })

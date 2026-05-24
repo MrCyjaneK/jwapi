@@ -62,50 +62,83 @@ func apiPublications(w http.ResponseWriter, req *http.Request) {
 	//contentOpfPath := helpers.GetDataDir() + pubdata.Path + "OEBPS/content.opf"
 	//fmt.Fprintln(w, contentOpfPath)
 	//content := libjw.DecodeContentOpf(contentOpfPath)
-	chapter := "<not a chapter>"
+	chapter := ""
 	if len(splited) > 4 {
 		chapter = strings.Join(splited[4:], "/")
 	}
 	html := ""
 	script := `<script>
-		var prev = ""
-		var next = false
+		var currentUrl = "/api/publications/` + pubu + `/` + chapter + `";
 		fetch("/api/publications_index/` + pubu + `")
 		.then(response => response.json())
-		.then((response) => {
-			for (i in response) {
-				option = document.createElement('option')
-				pagename = response[i].url.split("/")
-				pagename = pagename[pagename.length-1].split('.')[0]
-				option.text = response[i].title + "("+pagename+")"
-				option.value = response[i].url.replace("` + publication + `", "` + pubu + `")
-				if (next) {
-					document.getElementById("next").href = option.value
-					next = false
+		.then((chapters) => {
+			var prevEl = document.getElementById("prev");
+			var nextEl = document.getElementById("next");
+			var prevUrl = null;
+			var nextUrl = null;
+			for (var i = 0; i < chapters.length; i++) {
+				var url = chapters[i].url.replace("` + publication + `", "` + pubu + `");
+				if (url === currentUrl) {
+					if (i > 0) prevUrl = chapters[i-1].url.replace("` + publication + `", "` + pubu + `");
+					if (i < chapters.length - 1) nextUrl = chapters[i+1].url.replace("` + publication + `", "` + pubu + `");
+					break;
 				}
-				if (prev == "") {
-					document.getElementById("prev").href = option.value
-					next = true
-				}
-				if (option.value == "/api/publications/` + pubu + `/` + chapter + `") {
-					option.selected = true
-					document.getElementById("prev").href = prev
-					next = true
-				}
-				prev = option.value
-				//document.getElementById('chapter').add(option)
 			}
-		})
+			if (prevUrl) {
+				prevEl.href = prevUrl;
+			} else {
+				prevEl.classList.add("nav-disabled");
+			}
+			if (nextUrl) {
+				nextEl.href = nextUrl;
+			} else {
+				nextEl.classList.add("nav-disabled");
+			}
+		});
+		document.addEventListener("keydown", function(e) {
+			if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+			var el = null;
+			if (e.key === "ArrowLeft") el = document.getElementById("prev");
+			else if (e.key === "ArrowRight") el = document.getElementById("next");
+			if (el && !el.classList.contains("nav-disabled")) {
+				window.location.href = el.getAttribute("href");
+			}
+		});
 	</script>`
 	selector := `
-	<table style="width:100%; height:35px;">
-		<tr>
-			<td><a id="prev" href="#not_loaded"><img style="height:35px;width:35px" src="/static/img/arrow_left.png"></img></a></td>
-			<td><a id="next" href="#not_loaded"><img style="height:35px;width:35px" src="/static/img/arrow_right.png"></img></a></td>
-		<tr>
-	</table>
+	<style>
+		body { padding: 0 55px; }
+		.nav-arrow {
+			position: fixed;
+			top: 50%;
+			transform: translateY(-50%);
+			z-index: 1000;
+			background: rgba(255,255,255,0.85);
+			padding: 14px 6px;
+			text-decoration: none;
+			color: #333;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+			transition: background 0.15s;
+		}
+		.nav-arrow:hover { background: rgba(220,220,220,0.97); }
+		.nav-arrow.nav-disabled { opacity: 0.2; pointer-events: none; cursor: default; }
+		#prev { left: 0; border-radius: 0 6px 6px 0; }
+		#next { right: 0; border-radius: 6px 0 0 6px; }
+	</style>
+	<a id="prev" class="nav-arrow" href="#not_loaded"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></a>
+	<a id="next" class="nav-arrow" href="#not_loaded"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
 	`
 	if len(splited) == 4 || (len(splited) == 5 && splited[4] == "") {
+		// Redirect to the first content chapter directly
+		contentOpfPath := helpers.GetDataDir() + p.Path + "OEBPS/content.opf"
+		content := libjw.DecodeContentOpf(contentOpfPath)
+		for _, item := range content.Manifest.Items {
+			if item.MediaType == "application/xhtml+xml" && !isEPUBBoilerplate(item.ID, item.Properties, item.Href) {
+				http.Redirect(w, req, "/api/publications/"+pubu+"/"+item.Href, http.StatusFound)
+				return
+			}
+		}
+		// Fallback: no chapter found, show empty page
 		w.Header().Add("Content-Type", "text/html; encoding=utf-8")
 		html = `<!DOCTYPE html>
 			<head>
@@ -201,4 +234,22 @@ func apiPublications(w http.ResponseWriter, req *http.Request) {
 				</div>
 		</body>`
 	fmt.Fprint(w, html)
+}
+
+// isEPUBBoilerplate returns true for EPUB structural files that are not real
+// reading content: navigation documents (toc.xhtml, nav.xhtml) and cover pages.
+func isEPUBBoilerplate(id, properties, href string) bool {
+	// EPUB3 navigation document
+	if strings.Contains(properties, "nav") {
+		return true
+	}
+	// Cover page by manifest ID or filename
+	if id == "cover" || strings.HasPrefix(href, "cover.") {
+		return true
+	}
+	// TOC by filename fallback (EPUB2 toc.xhtml)
+	if strings.HasPrefix(href, "toc.") {
+		return true
+	}
+	return false
 }
