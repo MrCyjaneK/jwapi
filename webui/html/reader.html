@@ -40,6 +40,7 @@
     <div id="page-content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
             <button class="btn btn-primary" id="menu-toggle">Menu</button>
+            <button class="btn btn-secondary ml-2" onclick="history.back()">&#8592; Back</button>
         </nav>
         <iframe id="reader" width="100%" height="100%" frameborder="0" src="data:text/plain,Loading"></iframe>
     </div>
@@ -64,6 +65,10 @@
     page = location.hash.substr(1)
     iframe = document.getElementById('reader')
     iframe.src = page
+    // Navigate the iframe when the URL hash changes (e.g. clicking sidebar links while already on reader.html)
+    window.addEventListener('hashchange', function() {
+        iframe.src = location.hash.substr(1)
+    })
     // Update the iframe's link
     iframe.onload = (() => {
         //console.log(this)
