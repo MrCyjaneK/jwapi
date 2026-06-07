@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"math/rand"
 	"net/http"
 	"strconv"
 
@@ -18,7 +17,7 @@ var Port = 0
 // Start the webui
 func Start() {
 	if SPort == "0" {
-		Port = 2000 + rand.Intn(10000)
+		Port = 45678
 	} else {
 		Port, _ = strconv.Atoi(SPort)
 	}
